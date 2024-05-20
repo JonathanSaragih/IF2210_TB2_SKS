@@ -1,4 +1,4 @@
-package satriadhikara.if2210_tb2_sks;
+package jojikanabe.if2210_tb2_sks;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

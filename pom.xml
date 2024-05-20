@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>satriadhikara.if2210_tb2_sks/satriadhikara.if2210_tb2_sks.HelloApplication
+                            <mainClass>satriadhikara.if2210_tb2_sks/jojikanabe.if2210_tb2_sks.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
