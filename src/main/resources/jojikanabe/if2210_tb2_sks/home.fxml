@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="600" prefWidth="600" spacing="20.0" styleClass="vbox" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jojikanabe.if2210_tb2_sks.HelloController">
+      <Pane prefHeight="600.0" prefWidth="600.0" styleClass="pane">
+          <Text fill="WHITE" layoutX="75.0" layoutY="150.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" styleClass="custom-font" text="Harvest OOP" />
+         <Pane focusTraversable="true" layoutX="75.0" layoutY="386.0" prefHeight="100.0" prefWidth="450.0">
+             <Button layoutX="50.0" layoutY="5.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" styleClass="custom-button" text="New Game" />
+             <Button layoutX="250.0" layoutY="5.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0" styleClass="custom-button" text="Load Game" />
+         </Pane>
+      </Pane>
+</VBox>
