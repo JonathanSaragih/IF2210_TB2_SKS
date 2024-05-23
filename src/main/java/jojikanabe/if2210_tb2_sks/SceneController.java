@@ -1,6 +1,7 @@
 package jojikanabe.if2210_tb2_sks;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -9,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,12 +22,14 @@ import javafx.stage.Stage;
 import jojikanabe.if2210_tb2_sks.classes.GameState;
 import jojikanabe.if2210_tb2_sks.classes.Pemain;
 import jojikanabe.if2210_tb2_sks.classes.Toko;
+import jojikanabe.if2210_tb2_sks.classes.kartu.Kartu;
 import jojikanabe.if2210_tb2_sks.classes.kartu.Produk;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ArrayList;
 
 public class SceneController {
     private Stage stage;
@@ -56,12 +60,12 @@ public class SceneController {
     }
 
     public void NextPlayer(ActionEvent event) throws IOException {
-        if (GameState.getInstance().giliran == 1) {
+        GameState.getInstance().nextTurn();
+        if (GameState.getInstance().giliran == 2) {
             root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
         } else {
             root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
         }
-        GameState.getInstance().nextTurn();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -84,6 +88,64 @@ public class SceneController {
         button.setGraphic(imageView);
 
         return button;
+    }
+
+    @FXML
+    private Button deck0;
+
+    @FXML
+    private Button deck1;
+
+    @FXML
+    private Button deck2;
+
+    @FXML
+    private Button deck3;
+
+    @FXML
+    private Button deck4;
+
+    @FXML
+    private Button deck5;
+
+    public void addKartuToDeck() {
+        List<Kartu> deckAktif;
+        if (GameState.getInstance().giliran == 1) {
+            deckAktif = GameState.getInstance().getPemain().get(0).getDeckAktif();
+        } else {
+            deckAktif = GameState.getInstance().getPemain().get(1).getDeckAktif();
+        }
+        List<Button> deckButtons = new ArrayList<>();
+        deckButtons.add(deck0);
+        deckButtons.add(deck1);
+        deckButtons.add(deck2);
+        deckButtons.add(deck3);
+        deckButtons.add(deck4);
+        deckButtons.add(deck5);
+
+        for (int i = 0; i < deckAktif.size(); i++) {
+            Button button = deckButtons.get(i);
+            Kartu kartu = deckAktif.get(i);
+            button.setText(kartu.getNama());
+
+            // Load the image
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getImage())));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(30); // Set the width of the image
+            imageView.setFitHeight(30); // Set the height of the image
+
+            // Add the image to the button
+            button.setGraphic(imageView);
+
+            button.setContentDisplay(ContentDisplay.TOP);
+        }
+
+    }
+
+    public void initialize() {
+        if (GameState.getInstance().giliran != null) {
+            addKartuToDeck();
+        }
     }
 
     public void showTokoDialog() {
