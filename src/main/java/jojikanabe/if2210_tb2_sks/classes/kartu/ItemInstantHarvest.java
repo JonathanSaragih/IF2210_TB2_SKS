@@ -1,8 +1,8 @@
 package jojikanabe.if2210_tb2_sks.classes.kartu;
 
 public class ItemInstantHarvest extends Item {
-    public ItemInstantHarvest() {
-        super("Instant Harvest");
+    public ItemInstantHarvest(String image) {
+        super("Instant Harvest", image);
     }
 
     @Override

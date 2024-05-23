@@ -4,8 +4,8 @@ public abstract class Hewan extends Kartu implements Panen {
     protected final Integer beratBadanSiapPanen;
     protected Integer beratBadan;
 
-    public Hewan(String nama, Integer beratBadanSiapPanen, Integer beratBadan) {
-        super(nama);
+    public Hewan(String nama,String image, Integer beratBadanSiapPanen, Integer beratBadan) {
+        super(nama, image);
         this.beratBadanSiapPanen = beratBadanSiapPanen;
         this.beratBadan = beratBadan;
     }

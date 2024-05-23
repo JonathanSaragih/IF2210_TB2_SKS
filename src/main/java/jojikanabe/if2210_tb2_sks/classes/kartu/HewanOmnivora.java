@@ -1,8 +1,8 @@
 package jojikanabe.if2210_tb2_sks.classes.kartu;
 
 public class HewanOmnivora extends Hewan {
-    public HewanOmnivora(String nama, Integer beratBadanSiapPanen, Integer beratBadan) {
-        super(nama, beratBadanSiapPanen, beratBadan);
+    public HewanOmnivora(String nama, String image, Integer beratBadanSiapPanen, Integer beratBadan) {
+        super(nama, image, beratBadanSiapPanen, beratBadan);
     }
 
     @Override

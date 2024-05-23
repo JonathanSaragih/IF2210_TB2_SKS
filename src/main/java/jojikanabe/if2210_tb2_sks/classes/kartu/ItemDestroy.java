@@ -1,8 +1,8 @@
 package jojikanabe.if2210_tb2_sks.classes.kartu;
 
 public class ItemDestroy extends Item {
-    public ItemDestroy() {
-        super("Destroy");
+    public ItemDestroy(String image) {
+        super("Destroy", image);
     }
 
     @Override
