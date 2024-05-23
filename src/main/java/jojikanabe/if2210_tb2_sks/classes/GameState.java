@@ -69,36 +69,36 @@ public class GameState implements ConfigController {
         this.dataKartu = new ArrayList<>();
 
         // Hewan
-        dataKartu.add(new HewanKarnivora("Hiu Darat", 20, 0));
-        dataKartu.add(new HewanHerbivora("Sapi", 10, 0));
-        dataKartu.add(new HewanHerbivora("Domba", 12, 0));
-        dataKartu.add(new HewanHerbivora("Kuda", 14, 0));
-        dataKartu.add(new HewanOmnivora("Ayam", 5, 0));
-        dataKartu.add(new HewanOmnivora("Beruang", 25, 0));
+        dataKartu.add(new HewanKarnivora("Hiu Darat","src/main/resources/assets/kartu/Hewan/hiu_darat.png", 20, 0));
+        dataKartu.add(new HewanHerbivora("Sapi","src/main/resources/assets/kartu/Hewan/sapi.png", 10, 0));
+        dataKartu.add(new HewanHerbivora("Domba","src/main/resources/assets/kartu/Hewan/domba.png", 12, 0));
+        dataKartu.add(new HewanHerbivora("Kuda","src/main/resources/assets/kartu/Hewan/kuda.png", 14, 0));
+        dataKartu.add(new HewanOmnivora("Ayam","src/main/resources/assets/kartu/Hewan/ayam.png", 5, 0));
+        dataKartu.add(new HewanOmnivora("Beruang","src/main/resources/assets/kartu/Hewan/beruang.png", 25, 0));
 
         // Tanaman
-        dataKartu.add(new Tanaman("Biji Jagung", 3, 0));
-        dataKartu.add(new Tanaman("Biji Labu", 5, 0));
-        dataKartu.add(new Tanaman("Biji Stroberi", 4, 0));
+        dataKartu.add(new Tanaman("Biji Jagung","src/main/resources/assets/kartu/Tanaman/biji_jagung.png", 3, 0));
+        dataKartu.add(new Tanaman("Biji Labu","src/main/resources/assets/kartu/Tanaman/biji_labu.png", 5, 0));
+        dataKartu.add(new Tanaman("Biji Stroberi","src/main/resources/assets/kartu/Tanaman/biji_stroberi.png", 4, 0));
 
         // Produk
-        dataKartu.add(new Produk("Sirip Hiu", 500, 12));
-        dataKartu.add(new Produk("Susu", 100, 4));
-        dataKartu.add(new Produk("Daging Domba", 120, 6));
-        dataKartu.add(new Produk("Daging Kuda", 150, 8));
-        dataKartu.add(new Produk("Telur", 50, 2));
-        dataKartu.add(new Produk("Daging Beruang", 500, 12));
-        dataKartu.add(new Produk("Jagung", 150, 3));
-        dataKartu.add(new Produk("Labu", 500, 10));
-        dataKartu.add(new Produk("Stroberi", 350, 5));
+        dataKartu.add(new Produk("Sirip Hiu","src/main/resources/assets/kartu/Produk/sirip.png", 500, 12));
+        dataKartu.add(new Produk("Susu","src/main/resources/assets/kartu/Produk/susu.png", 100, 4));
+        dataKartu.add(new Produk("Daging Domba","src/main/resources/assets/kartu/Produk/dagingdomba.png", 120, 6));
+        dataKartu.add(new Produk("Daging Kuda","src/main/resources/assets/kartu/Produk/dagingkuda.png", 150, 8));
+        dataKartu.add(new Produk("Telur","src/main/resources/assets/kartu/Produk/telur.png", 50, 2));
+        dataKartu.add(new Produk("Daging Beruang","src/main/resources/assets/kartu/Produk/dagingberuang.png", 500, 12));
+        dataKartu.add(new Produk("Jagung","src/main/resources/assets/kartu/Produk/jagung.png", 150, 3));
+        dataKartu.add(new Produk("Labu","src/main/resources/assets/kartu/Produk/pumpkin.png", 500, 10));
+        dataKartu.add(new Produk("Stroberi","src/main/resources/assets/kartu/Produk/strawberry.png", 350, 5));
 
         // Item
-        dataKartu.add(new ItemAccelerate());
-        dataKartu.add(new ItemDelay());
-        dataKartu.add(new ItemInstantHarvest());
-        dataKartu.add(new ItemDestroy());
-        dataKartu.add(new ItemProtect());
-        dataKartu.add(new ItemTrap());
+        dataKartu.add(new ItemAccelerate("src/main/resources/assets/kartu/item_Accelerate.png"));
+        dataKartu.add(new ItemDelay("src/main/resources/assets/kartu/delay.png"));
+        dataKartu.add(new ItemInstantHarvest("src/main/resources/assets/kartu/instant_harvest.png"));
+        dataKartu.add(new ItemDestroy("src/main/resources/assets/kartu/destroy.png"));
+        dataKartu.add(new ItemProtect("src/main/resources/assets/kartu/protect.png"));
+        dataKartu.add(new ItemTrap("src/main/resources/assets/kartu/trap.png"));
 
     }
 
