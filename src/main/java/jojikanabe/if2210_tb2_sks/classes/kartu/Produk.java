@@ -4,8 +4,8 @@ public class Produk extends Kartu {
     private Integer harga;
     private Integer kalori;
 
-    public Produk(String nama, Integer harga, Integer kalori) {
-        super(nama);
+    public Produk(String nama, String image, Integer harga, Integer kalori) {
+        super(nama, image);
         this.harga = harga;
         this.kalori = kalori;
     }

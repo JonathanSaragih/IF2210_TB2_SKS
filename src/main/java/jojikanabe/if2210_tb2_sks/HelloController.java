@@ -45,36 +45,6 @@ public class HelloController {
             grid.getColumnConstraints().add(column);
         }
 
-        // Add some elements to the GridPane
-        Button button1 = new Button("");
-        button1.setPrefWidth(140); // Set the width of the button
-        button1.setPrefHeight(100); // Set the height of the button
-        button1.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
-
-        Button button2 = new Button("");
-        button2.setPrefWidth(140); // Set the width of the button
-        button2.setPrefHeight(100); // Set the height of the button
-        button2.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
-
-        Button button3 = new Button("");
-        button3.setPrefWidth(140); // Set the width of the button
-        button3.setPrefHeight(100); // Set the height of the button
-        button3.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
-
-        // Add the buttons to the GridPane at the desired column indices
-        grid.add(button1, 0, 0); // Add Button 1 to column 0, row 0
-        grid.add(button2, 1, 0); // Add Button 2 to column 1, row 0
-        grid.add(button3, 2, 0); // Add Button 3 to column 2, row 0
-
-        GridPane.setHalignment(button1, HPos.CENTER);
-        GridPane.setValignment(button1, VPos.CENTER);
-
-        GridPane.setHalignment(button2, HPos.CENTER);
-        GridPane.setValignment(button2, VPos.CENTER);
-
-        GridPane.setHalignment(button3, HPos.CENTER);
-        GridPane.setValignment(button3, VPos.CENTER);
-
         vbox.getChildren().add(grid);
 
         Image image2 = new Image(getClass().getResourceAsStream("/assets/etalase.png"));

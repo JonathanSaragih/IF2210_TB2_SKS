@@ -20,6 +20,10 @@ public class Toko {
         }
     }
 
+    public Map<Produk, Integer> getDaftarProduk() {
+        return daftarProduk;
+    }
+
     Produk jualProduk(Produk produk, Integer jumlah) {
         if (daftarProduk.containsKey(produk)) {
             Integer stok = daftarProduk.get(produk);

@@ -35,6 +35,10 @@ public class GameState implements ConfigController {
         return instance;
     }
 
+    public Toko getToko() {
+        return toko;
+    }
+
     public void NewGame() {
         this.pemain = new ArrayList<>();
         this.pemain.add(new Pemain("Pemain 1", 1000, 40, 0));
