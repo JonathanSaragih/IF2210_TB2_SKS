@@ -9,6 +9,7 @@ public class Pemain {
     private final String nama;
     private Integer gulden;
     private Deck deck;
+    private Ladang ladang;
     private List<Kartu> deckAktif;
 
     public Pemain(String nama, Integer gulden, int jumlahDeck, int jumlahDeckAktif) {
@@ -16,6 +17,7 @@ public class Pemain {
         this.gulden = gulden;
         this.deck = new Deck(jumlahDeck);
         this.deckAktif = new ArrayList<>(jumlahDeckAktif);
+        this.ladang = new Ladang();
     }
 
     public void addKartu(Kartu kartu, int index) {
@@ -24,6 +26,18 @@ public class Pemain {
 
     public String getNama() {
         return nama;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public Ladang getLadang() {
+        return ladang;
+    }
+
+    public void setLadang(Ladang ladang) {
+        this.ladang = ladang;
     }
 
     public Integer getGulden() {

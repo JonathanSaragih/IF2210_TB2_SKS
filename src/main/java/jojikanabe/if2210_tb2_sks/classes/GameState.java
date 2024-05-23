@@ -1,5 +1,6 @@
 package jojikanabe.if2210_tb2_sks.classes;
 
+import javafx.util.Pair;
 import jojikanabe.if2210_tb2_sks.classes.kartu.*;
 
 import java.io.BufferedReader;
@@ -154,6 +155,7 @@ public class GameState implements ConfigController {
             int i = 0;
             int jumlahDeck = 40;
             int jumlahDeckAktif = 0;
+            int jumlahLadang = 0;
             int gulden = 0;
             while ((line = br.readLine()) != null) {
                 if (i == 0) {
@@ -168,6 +170,33 @@ public class GameState implements ConfigController {
                     int posisi = Helper.convertStringToNumber(data[0]);
                     String nama = Helper.convertString(data[1]);
                     pemain.get(0).addKartu(getKartu(nama), posisi);
+                } else if (i == 3 + jumlahDeckAktif) {
+                    jumlahLadang = Integer.parseInt(line);
+                } else {
+                    String data[] = line.split(" ");
+                    Pair<Integer, Integer> posisi = Ladang.getLadangIndex(data[0]);
+                    String nama = Helper.convertString(data[1]);
+                    Kartu kartu = getKartu(nama);
+                    if (kartu instanceof Tanaman) {
+                        ((Tanaman) kartu).setUmur(Integer.parseInt(data[2]));
+                    } else {
+                        ((Hewan) kartu).setBeratBadan(Integer.parseInt(data[2]));
+                    }
+                    try {
+                        pemain.get(0).getLadang().setKartu(posisi.getKey(), posisi.getValue(), kartu);
+                    } catch (Exception e) {
+                        Kartu temp = pemain.get(0).getLadang().getKartu(posisi.getKey(), posisi.getValue());
+                        System.out.println(e.getMessage());
+                    }
+                    for (int j = 4; j < data.length; j++) {
+                        String namaItem = Helper.convertString(data[j]);
+                        Item item = (Item) getKartu(namaItem);
+                        try {
+                            pemain.get(0).getLadang().setKartuItems(posisi.getKey(), posisi.getValue(), item);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                 }
                 i += 1;
             }
@@ -181,6 +210,7 @@ public class GameState implements ConfigController {
             int jumlahDeck = 40;
             int jumlahDeckAktif = 0;
             int gulden = 0;
+            int jumlahLadang = 0;
             while ((line = br.readLine()) != null) {
                 if (i == 0) {
                     gulden = Integer.parseInt(line);
@@ -194,6 +224,33 @@ public class GameState implements ConfigController {
                     int posisi = Helper.convertStringToNumber(data[0]);
                     String nama = Helper.convertString(data[1]);
                     pemain.get(1).addKartu(getKartu(nama), posisi);
+                } else if (i == 3 + jumlahDeckAktif) {
+                    jumlahLadang = Integer.parseInt(line);
+                } else {
+                    String data[] = line.split(" ");
+                    Pair<Integer, Integer> posisi = Ladang.getLadangIndex(data[0]);
+                    String nama = Helper.convertString(data[1]);
+                    Kartu kartu = getKartu(nama);
+                    if (kartu instanceof Tanaman) {
+                        ((Tanaman) kartu).setUmur(Integer.parseInt(data[2]));
+                    } else {
+                        ((Hewan) kartu).setBeratBadan(Integer.parseInt(data[2]));
+                    }
+                    try {
+                        pemain.get(1).getLadang().setKartu(posisi.getKey(), posisi.getValue(), kartu);
+                    } catch (Exception e) {
+                        Kartu temp = pemain.get(1).getLadang().getKartu(posisi.getKey(), posisi.getValue());
+                        System.out.println(e.getMessage());
+                    }
+                    for (int j = 4; j < data.length; j++) {
+                        String namaItem = Helper.convertString(data[j]);
+                        Item item = (Item) getKartu(namaItem);
+                        try {
+                            pemain.get(1).getLadang().setKartuItems(posisi.getKey(), posisi.getValue(), item);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                 }
                 i += 1;
             }
