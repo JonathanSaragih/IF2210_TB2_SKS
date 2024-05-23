@@ -7,7 +7,7 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="600" prefWidth="600" spacing="20.0"
       styleClass="vbox"
       stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      fx:controller="jojikanabe.if2210_tb2_sks.SceneController">
+      fx:controller="jojikanabe.if2210_tb2_sks.HomeController">
     <Pane prefHeight="600.0" prefWidth="600.0" styleClass="pane">
         <Text fill="WHITE" layoutX="75.0" layoutY="150.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0"
               styleClass="custom-font" text="Harvest OOP"/>
