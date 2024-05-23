@@ -91,8 +91,8 @@
                   <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Ladangku" GridPane.rowIndex="0" />
                   <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Ladang Lawan" GridPane.rowIndex="1" />
                   <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Toko" GridPane.rowIndex="2" onAction="#showTokoDialog" />
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Save State" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Load State" GridPane.rowIndex="4" />
+                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Save State" GridPane.rowIndex="3"  />
+                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Load State" GridPane.rowIndex="4" onAction="#showLoadGame" />
                   <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Load Plugin" GridPane.rowIndex="5" />
                </children>
             </GridPane>

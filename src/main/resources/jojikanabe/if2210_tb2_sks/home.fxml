@@ -14,7 +14,7 @@
         <Pane focusTraversable="true" layoutX="75.0" layoutY="386.0" prefHeight="100.0" prefWidth="450.0">
             <Button layoutX="50.0" layoutY="5.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="160.0"
                     styleClass="custom-button" text="New Game"/>
-            <Button layoutX="250.0" layoutY="5.0" mnemonicParsing="false" onAction="#LoadGame" prefHeight="80.0"
+            <Button layoutX="250.0" layoutY="5.0" mnemonicParsing="false" onAction="#showLoadGameDialog" prefHeight="80.0"
                     prefWidth="160.0" styleClass="custom-button" text="Load Game"/>
         </Pane>
     </Pane>
