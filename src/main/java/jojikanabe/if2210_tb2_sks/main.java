@@ -7,7 +7,5 @@ public class main {
     private static GameState gameState = GameState.getInstance();
 
     public static void main(String[] args) {
-        gameState.loadConfig("config");
-        gameState.toko.cetakToko();
     }
 }

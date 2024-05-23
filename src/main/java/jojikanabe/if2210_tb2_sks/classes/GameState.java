@@ -14,14 +14,12 @@ import java.util.List;
  */
 public class GameState implements ConfigController {
     private static volatile GameState instance = null;
-    public Toko toko;
-    private Integer giliran;
+    public Integer giliran;
+    private Toko toko;
     private List<Pemain> pemain;
     private List<Kartu> dataKartu;
 
     private GameState() {
-        this.giliran = 1;
-        this.pemain = new ArrayList<>();
         this.loadKartu();
         this.loadToko();
     }
@@ -35,6 +33,18 @@ public class GameState implements ConfigController {
             }
         }
         return instance;
+    }
+
+    public void NewGame() {
+        this.pemain = new ArrayList<>();
+        this.pemain.add(new Pemain("Pemain 1", 1000, 40, 0));
+        this.pemain.add(new Pemain("Pemain 2", 1000, 40, 0));
+        this.giliran = 1;
+    }
+
+    public void LoadGame() {
+        this.pemain = new ArrayList<>();
+        this.loadConfig("config");
     }
 
     private void loadToko() {
