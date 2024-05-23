@@ -34,4 +34,22 @@ public class Pemain {
         this.gulden = gulden;
     }
 
+    public void ShuffleDeck() {
+        int i = 0;
+        if (deckAktif.size() <= 2) {
+            i = 4;
+        } else if (deckAktif.size() == 3) {
+            i = 3;
+        } else if (deckAktif.size() == 4) {
+            i = 2;
+        } else if (deckAktif.size() == 5) {
+            i = 1;
+        }
+
+        for (int j = 0; j < i; j++) {
+            Kartu temp = deck.getKartuRandom();
+            deckAktif.add(temp);
+        }
+    }
+
 }

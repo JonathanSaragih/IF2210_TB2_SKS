@@ -30,4 +30,12 @@ public class Deck {
     public void addKartu(Kartu kartu) {
         this.kartu.add(kartu);
     }
+
+    public Kartu getKartuRandom() {
+        Random random = new Random();
+        int index = random.nextInt(kartu.size());
+        Kartu temp = kartu.get(index);
+        kartu.remove(index);
+        return temp;
+    }
 }

@@ -25,6 +25,7 @@ import jojikanabe.if2210_tb2_sks.classes.kartu.Produk;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class SceneController {
     private Stage stage;
@@ -65,6 +66,24 @@ public class SceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private Button createButton(String nama, String harga, String value, String imagePath) {
+        Button button = new Button(nama + "\n" + harga + "\n" + value);
+        button.setPrefWidth(150); // Set the width of the button
+        button.setPrefHeight(100); // Set the height of the button
+        button.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
+
+        // Load the image
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(50); // Set the width of the image
+        imageView.setFitHeight(50); // Set the height of the image
+
+        // Add the image to the button
+        button.setGraphic(imageView);
+
+        return button;
     }
 
     public void showTokoDialog() {
@@ -122,36 +141,18 @@ public class SceneController {
 
             if (entry.getValue() > 0) {
                 if (counter == 0 || counter == 1 || counter == 2) {
-                    Button button = new Button(entry.getKey().getNama() + "\n" + entry.getKey().getHarga() + "\n" + entry.getValue());
-                    button.setPrefWidth(150); // Set the width of the button
-                    button.setPrefHeight(100); // Set the height of the button
-                    button.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
-
-                    // Add the button to the GridPane at the desired column and row indices
+                    Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
                     grid.add(button, counter % 3, counter / 3);
-
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
                 } else if (counter == 3 || counter == 4 || counter == 5) {
-                    Button button = new Button(entry.getKey().getNama() + "\n" + entry.getKey().getHarga() + "\n" + entry.getValue());
-                    button.setPrefWidth(150); // Set the width of the button
-                    button.setPrefHeight(100); // Set the height of the button
-                    button.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
-
-                    // Add the button to the GridPane at the desired column and row indices
+                    Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
                     grid2.add(button, counter % 3, counter / 3);
-
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
                 } else {
-                    Button button = new Button(entry.getKey().getNama() + "\n" + entry.getKey().getHarga() + "\n" + entry.getValue());
-                    button.setPrefWidth(150); // Set the width of the button
-                    button.setPrefHeight(100); // Set the height of the button
-                    button.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
-
-                    // Add the button to the GridPane at the desired column and row indices
+                    Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
                     grid3.add(button, counter % 3, counter / 3);
-
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
                 }

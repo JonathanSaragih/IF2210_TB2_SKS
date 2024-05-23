@@ -15,6 +15,7 @@ import java.util.List;
 public class GameState implements ConfigController {
     private static volatile GameState instance = null;
     public Integer giliran;
+    private Integer turn;
     private Toko toko;
     private List<Pemain> pemain;
     private List<Kartu> dataKartu;
@@ -69,36 +70,36 @@ public class GameState implements ConfigController {
         this.dataKartu = new ArrayList<>();
 
         // Hewan
-        dataKartu.add(new HewanKarnivora("Hiu Darat","src/main/resources/assets/kartu/Hewan/hiu_darat.png", 20, 0));
-        dataKartu.add(new HewanHerbivora("Sapi","src/main/resources/assets/kartu/Hewan/sapi.png", 10, 0));
-        dataKartu.add(new HewanHerbivora("Domba","src/main/resources/assets/kartu/Hewan/domba.png", 12, 0));
-        dataKartu.add(new HewanHerbivora("Kuda","src/main/resources/assets/kartu/Hewan/kuda.png", 14, 0));
-        dataKartu.add(new HewanOmnivora("Ayam","src/main/resources/assets/kartu/Hewan/ayam.png", 5, 0));
-        dataKartu.add(new HewanOmnivora("Beruang","src/main/resources/assets/kartu/Hewan/beruang.png", 25, 0));
+        dataKartu.add(new HewanKarnivora("Hiu Darat", "/assets/kartu/Hewan/hiu_darat.png", 20, 0));
+        dataKartu.add(new HewanHerbivora("Sapi", "/assets/kartu/Hewan/sapi.png", 10, 0));
+        dataKartu.add(new HewanHerbivora("Domba", "/assets/kartu/Hewan/domba.png", 12, 0));
+        dataKartu.add(new HewanHerbivora("Kuda", "/assets/kartu/Hewan/kuda.png", 14, 0));
+        dataKartu.add(new HewanOmnivora("Ayam", "/assets/kartu/Hewan/ayam.png", 5, 0));
+        dataKartu.add(new HewanOmnivora("Beruang", "/assets/kartu/Hewan/beruang.png", 25, 0));
 
         // Tanaman
-        dataKartu.add(new Tanaman("Biji Jagung","src/main/resources/assets/kartu/Tanaman/biji_jagung.png", 3, 0));
-        dataKartu.add(new Tanaman("Biji Labu","src/main/resources/assets/kartu/Tanaman/biji_labu.png", 5, 0));
-        dataKartu.add(new Tanaman("Biji Stroberi","src/main/resources/assets/kartu/Tanaman/biji_stroberi.png", 4, 0));
+        dataKartu.add(new Tanaman("Biji Jagung", "/assets/kartu/Tanaman/biji_jagung.png", 3, 0));
+        dataKartu.add(new Tanaman("Biji Labu", "/assets/kartu/Tanaman/biji_labu.png", 5, 0));
+        dataKartu.add(new Tanaman("Biji Stroberi", "/assets/kartu/Tanaman/biji_stroberi.png", 4, 0));
 
         // Produk
-        dataKartu.add(new Produk("Sirip Hiu","src/main/resources/assets/kartu/Produk/sirip.png", 500, 12));
-        dataKartu.add(new Produk("Susu","src/main/resources/assets/kartu/Produk/susu.png", 100, 4));
-        dataKartu.add(new Produk("Daging Domba","src/main/resources/assets/kartu/Produk/dagingdomba.png", 120, 6));
-        dataKartu.add(new Produk("Daging Kuda","src/main/resources/assets/kartu/Produk/dagingkuda.png", 150, 8));
-        dataKartu.add(new Produk("Telur","src/main/resources/assets/kartu/Produk/telur.png", 50, 2));
-        dataKartu.add(new Produk("Daging Beruang","src/main/resources/assets/kartu/Produk/dagingberuang.png", 500, 12));
-        dataKartu.add(new Produk("Jagung","src/main/resources/assets/kartu/Produk/jagung.png", 150, 3));
-        dataKartu.add(new Produk("Labu","src/main/resources/assets/kartu/Produk/pumpkin.png", 500, 10));
-        dataKartu.add(new Produk("Stroberi","src/main/resources/assets/kartu/Produk/strawberry.png", 350, 5));
+        dataKartu.add(new Produk("Sirip Hiu", "/assets/kartu/Produk/sirip.png", 500, 12));
+        dataKartu.add(new Produk("Susu", "/assets/kartu/Produk/susu.png", 100, 4));
+        dataKartu.add(new Produk("Daging Domba", "/assets/kartu/Produk/dagingdomba.png", 120, 6));
+        dataKartu.add(new Produk("Daging Kuda", "/assets/kartu/Produk/dagingkuda.png", 150, 8));
+        dataKartu.add(new Produk("Telur", "/assets/kartu/Produk/telur.png", 50, 2));
+        dataKartu.add(new Produk("Daging Beruang", "/assets/kartu/Produk/dagingberuang.png", 500, 12));
+        dataKartu.add(new Produk("Jagung", "/assets/kartu/Produk/jagung.png", 150, 3));
+        dataKartu.add(new Produk("Labu", "/assets/kartu/Produk/pumpkin.png", 500, 10));
+        dataKartu.add(new Produk("Stroberi", "/assets/kartu/Produk/strawberry.png", 350, 5));
 
         // Item
-        dataKartu.add(new ItemAccelerate("src/main/resources/assets/kartu/item_Accelerate.png"));
-        dataKartu.add(new ItemDelay("src/main/resources/assets/kartu/delay.png"));
-        dataKartu.add(new ItemInstantHarvest("src/main/resources/assets/kartu/instant_harvest.png"));
-        dataKartu.add(new ItemDestroy("src/main/resources/assets/kartu/destroy.png"));
-        dataKartu.add(new ItemProtect("src/main/resources/assets/kartu/protect.png"));
-        dataKartu.add(new ItemTrap("src/main/resources/assets/kartu/trap.png"));
+        dataKartu.add(new ItemAccelerate("/assets/kartu/item_Accelerate.png"));
+        dataKartu.add(new ItemDelay("/assets/kartu/delay.png"));
+        dataKartu.add(new ItemInstantHarvest("/assets/kartu/instant_harvest.png"));
+        dataKartu.add(new ItemDestroy("/assets/kartu/destroy.png"));
+        dataKartu.add(new ItemProtect("/assets/kartu/protect.png"));
+        dataKartu.add(new ItemTrap("/assets/kartu/trap.png"));
 
     }
 
