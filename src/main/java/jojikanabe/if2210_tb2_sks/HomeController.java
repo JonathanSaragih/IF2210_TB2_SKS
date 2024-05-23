@@ -32,18 +32,6 @@ public class HomeController {
         stage.show();
     }
 
-    public void LoadGame(ActionEvent event) throws IOException {
-        GameState.getInstance().LoadGame();
-        if (GameState.getInstance().giliran % 2 == 1) {
-            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
-        } else {
-            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
-        }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void showLoadGameDialog(ActionEvent event) {
         Stage dialogStage = new Stage();
@@ -89,7 +77,7 @@ public class HomeController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+//                GameState.getInstance().LoadGame();
                 showLoadGameResultDialog("STATE LOADED SUCCESSFULLY", dialogStage, event);
             } catch (Exception ex) {
                 showLoadGameResultDialog("FAILED TO LOAD STATE", dialogStage, event);
@@ -124,9 +112,9 @@ public class HomeController {
         okButton.setOnAction(e -> {
             parentStage.close();
             try {
-                loadGameAndSwitchScene(originalEvent);
+                loadGameAndSwitchScene(e);
             } catch (IOException ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
             }
         });
 
@@ -144,9 +132,9 @@ public class HomeController {
     private void loadGameAndSwitchScene(ActionEvent event) throws IOException {
         GameState.getInstance().LoadGame();
         if (GameState.getInstance().giliran % 2 == 1) {
-            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            root = FXMLLoader.load(getClass().getResource("player1.fxml"));
         } else {
-            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            root = FXMLLoader.load(getClass().getResource("player2.fxml"));
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
