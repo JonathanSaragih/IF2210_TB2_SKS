@@ -40,6 +40,10 @@ public class GameState implements ConfigController {
         return toko;
     }
 
+    public List<Pemain> getPemain() {
+        return pemain;
+    }
+
     public void NewGame() {
         this.pemain = new ArrayList<>();
         this.pemain.add(new Pemain("Pemain 1", 1000, 40, 0));

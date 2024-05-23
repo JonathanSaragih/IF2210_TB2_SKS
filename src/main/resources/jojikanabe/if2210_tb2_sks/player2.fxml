@@ -66,12 +66,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="0" />
-                        <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="1" />
-                        <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="2" />
-                        <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="3" />
-                        <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="4" />
-                        <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="5" />
+                        <Button fx:id="deck0" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="0" />
+                        <Button fx:id="deck1" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="1" />
+                        <Button fx:id="deck2" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="2" />
+                        <Button fx:id="deck3" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="3" />
+                        <Button fx:id="deck4" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="4" />
+                        <Button fx:id="deck5" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="5" />
                         <Button mnemonicParsing="false" prefHeight="33.3" prefWidth="62.4" styleClass="card-shuffle" stylesheets="styles.css" text="Deck" GridPane.columnIndex="6" />
                     </children>
                 </GridPane>
