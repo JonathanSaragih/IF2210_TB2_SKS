@@ -6,7 +6,12 @@ public class HewanOmnivora extends Hewan {
     }
 
     @Override
-    void makan(Integer beratBadan) {
-        this.beratBadan = beratBadan;
+    void makan(Kartu kartu) throws Exception {
+        if (kartu instanceof Produk) {
+            Produk produk = (Produk) kartu;
+            this.beratBadan += produk.getKalori();
+        } else {
+            throw new Exception("Hewan tidak bisa makan kartu ini");
+        }
     }
 }
