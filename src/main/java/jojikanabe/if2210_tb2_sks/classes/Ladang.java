@@ -25,7 +25,7 @@ public class Ladang {
 
     public static Pair<Integer, Integer> getLadangIndex(String posisi) {
         int row = (int) posisi.charAt(0) - (int) 'A';
-        int col = Character.getNumericValue(posisi.charAt(1));
+        int col = Character.getNumericValue(posisi.charAt(2)) - 1;
 
         return new Pair<>(row, col);
     }

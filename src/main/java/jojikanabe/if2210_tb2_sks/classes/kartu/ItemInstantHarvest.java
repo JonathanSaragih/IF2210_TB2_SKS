@@ -16,11 +16,11 @@ public class ItemInstantHarvest extends Item {
             if (kartu instanceof Tanaman) {
                 Tanaman tanaman = (Tanaman) kartu;
                 tanaman.setUmur(tanaman.getUmurSiapPanen());
-                tanaman.panen();
+                tanaman.panen(row, col, nomorPemain);
             } else if (kartu instanceof Hewan) {
                 Hewan hewan = (Hewan) kartu;
                 hewan.setBeratBadan(hewan.getBeratBadanSiapPanen());
-                hewan.panen();
+                hewan.panen(row, col, nomorPemain);
             } else {
                 throw new Exception("Kartu yang diberikan bukan hewan atau tanaman");
             }
