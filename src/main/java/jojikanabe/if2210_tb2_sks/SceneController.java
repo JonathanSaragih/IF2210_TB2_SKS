@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -84,7 +85,80 @@ public class SceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        showAlert();
     }
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setHeaderText(null);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setTranslateX(20);
+        gridPane.setTranslateY(10);
+
+        Button button1 = new Button("");
+        button1.setPrefWidth(150);
+        button1.setPrefHeight(250);
+
+        Button button2 = new Button("");
+        button2.setPrefWidth(150);
+        button2.setPrefHeight(250);
+
+        Button button3 = new Button("");
+        button3.setPrefWidth(150);
+        button3.setPrefHeight(250);
+
+        Button button4 = new Button("");
+        button4.setPrefWidth(150);
+        button4.setPrefHeight(250);
+
+        gridPane.add(button1, 0, 0);
+        gridPane.add(button2, 1, 0);
+        gridPane.add(button3, 0, 1);
+        gridPane.add(button4, 1, 1);
+
+        Button regenerateButton = new Button("Regenerate");
+        regenerateButton.setPrefWidth(100);
+        regenerateButton.setTranslateX(-5);
+        regenerateButton.setTranslateY(10);
+        regenerateButton.setId("regenerateButton");
+
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setPrefWidth(100);
+        confirmButton.setTranslateX(-5);
+        confirmButton.setTranslateY(10);
+        confirmButton.setId("confirmButton");
+        confirmButton.setOnAction(e -> {
+            alert.setResult(ButtonType.OK); // Set the result to OK (or any other type if needed)
+            alert.hide(); // Close the alert dialog
+        });
+
+        VBox vbox = new VBox(10);
+        vbox.setAlignment(Pos.CENTER); // Center align vertically
+        vbox.getChildren().addAll(gridPane, regenerateButton, confirmButton);
+
+        // Center align gridPane horizontally
+        GridPane.setHalignment(gridPane, HPos.CENTER);
+
+        alert.getDialogPane().setContent(vbox);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        dialogPane.setPrefSize(400, 500);
+
+        ImageView imageView = new ImageView();
+        imageView.setImage(null);
+        alert.setGraphic(imageView);
+
+        alert.getButtonTypes().clear();
+
+        alert.showAndWait();
+    }
+
 
     private Button createButton(String nama, String harga, String value, String imagePath) {
         Button button = new Button(nama + "\n" + harga + "\n" + value);
