@@ -36,26 +36,26 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="0" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="3" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="4" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay4" stylesheets="styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay4" stylesheets="styles.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay5" stylesheets="styles.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay5" stylesheets="styles.css" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay5" stylesheets="styles.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <Button fx:id="A01" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="0" />
+                  <Button fx:id="A02" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="1" />
+                  <Button fx:id="A03" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="2" />
+                  <Button fx:id="A04" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="3" />
+                  <Button fx:id="A05" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="4" />
+                  <Button fx:id="B01" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <Button fx:id="B02" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="B03" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="B04" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay4" stylesheets="styles.css" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Button fx:id="B05" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Button fx:id="C01" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <Button fx:id="C02" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay4" stylesheets="styles.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="C03" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay5" stylesheets="styles.css" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="C04" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay3" stylesheets="styles.css" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="C05" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay5" stylesheets="styles.css" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Button fx:id="D01" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <Button fx:id="D02" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay5" stylesheets="styles.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button fx:id="D03" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Button fx:id="D04" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay1" stylesheets="styles.css" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Button fx:id="D05" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="hay2" stylesheets="styles.css" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <GridPane layoutX="14.0" layoutY="355.0" prefHeight="62.0" prefWidth="588.0">

@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import jojikanabe.if2210_tb2_sks.classes.GameState;
+import jojikanabe.if2210_tb2_sks.classes.Ladang;
 import jojikanabe.if2210_tb2_sks.classes.Pemain;
 import jojikanabe.if2210_tb2_sks.classes.Toko;
 import jojikanabe.if2210_tb2_sks.classes.kartu.Kartu;
@@ -142,9 +143,120 @@ public class SceneController {
 
     }
 
+    @FXML
+    private Button A01;
+
+    @FXML
+    private Button A02;
+
+    @FXML
+    private Button A03;
+
+    @FXML
+    private Button A04;
+
+    @FXML
+    private Button A05;
+
+    @FXML
+    private Button B01;
+
+    @FXML
+    private Button B02;
+
+    @FXML
+    private Button B03;
+
+    @FXML
+    private Button B04;
+
+    @FXML
+    private Button B05;
+
+    @FXML
+    private Button C01;
+
+    @FXML
+    private Button C02;
+
+    @FXML
+    private Button C03;
+
+    @FXML
+    private Button C04;
+
+    @FXML
+    private Button C05;
+
+    @FXML
+    private Button D01;
+
+    @FXML
+    private Button D02;
+
+    @FXML
+    private Button D03;
+
+    @FXML
+    private Button D04;
+
+    @FXML
+    private Button D05;
+
+    public void addKartuToLadang() {
+        List<Button> ladangButtons = new ArrayList<>();
+        ladangButtons.add(A01);
+        ladangButtons.add(A02);
+        ladangButtons.add(A03);
+        ladangButtons.add(A04);
+        ladangButtons.add(A05);
+        ladangButtons.add(B01);
+        ladangButtons.add(B02);
+        ladangButtons.add(B03);
+        ladangButtons.add(B04);
+        ladangButtons.add(B05);
+        ladangButtons.add(C01);
+        ladangButtons.add(C02);
+        ladangButtons.add(C03);
+        ladangButtons.add(C04);
+        ladangButtons.add(C05);
+        ladangButtons.add(D01);
+        ladangButtons.add(D02);
+        ladangButtons.add(D03);
+        ladangButtons.add(D04);
+        ladangButtons.add(D05);
+
+        Ladang ladang;
+        if (GameState.getInstance().giliran == 1) {
+            ladang = GameState.getInstance().getPemain().get(0).getLadang();
+        } else {
+            ladang = GameState.getInstance().getPemain().get(1).getLadang();
+        }
+
+        for (int i = 0; i < 20; i++) {
+            Button button = ladangButtons.get(i);
+            Kartu kartu = ladang.getKartu(i / 5, i % 5);
+            if (kartu != null) {
+                button.setText(kartu.getNama());
+
+                // Load the image
+                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getImage())));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(30); // Set the width of the image
+                imageView.setFitHeight(30); // Set the height of the image
+
+                // Add the image to the button
+                button.setGraphic(imageView);
+
+                button.setContentDisplay(ContentDisplay.TOP);
+            }
+        }
+    }
+
     public void initialize() {
         if (GameState.getInstance().giliran != null) {
             addKartuToDeck();
+            addKartuToLadang();
         }
     }
 
