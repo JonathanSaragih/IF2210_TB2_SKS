@@ -5,5 +5,5 @@ public abstract class Item extends Kartu {
         super(nama, image);
     }
 
-    public abstract void efek();
+    public abstract void efek(int row, int col, int nomorPemain) throws Exception;
 }

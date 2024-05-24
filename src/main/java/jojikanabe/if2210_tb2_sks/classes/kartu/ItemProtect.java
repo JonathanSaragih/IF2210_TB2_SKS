@@ -6,7 +6,7 @@ public class ItemProtect extends Item {
     }
 
     @Override
-    public void efek() {
-        System.out.println("Efek item protect");
+    public void efek(int row, int col, int nomorPemain) throws Exception {
+        
     }
 }
