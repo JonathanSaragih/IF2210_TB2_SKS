@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import jojikanabe.if2210_tb2_sks.classes.GameState;
 import jojikanabe.if2210_tb2_sks.classes.Ladang;
 import jojikanabe.if2210_tb2_sks.classes.Pemain;
@@ -262,6 +263,7 @@ public class SceneController {
 
     public void showTokoDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UNDECORATED);
         alert.setTitle("Catalog");
         alert.setHeaderText(null);
         alert.setContentText(null);
