@@ -10,7 +10,7 @@
         <Pane prefHeight="170.0" prefWidth="600.0">
             <Pane layoutX="14.0" layoutY="14.0" prefHeight="31.2" prefWidth="124.8" styleClass="playerlabel" stylesheets="styles.css">
                 <HBox spacing="30">
-                    <Label styleClass="player1label" stylesheets="styles.css" text="Player 1:" />
+                    <Label fx:id="player1" styleClass="player1label" stylesheets="styles.css" text="Player 1:" />
                     <ImageView fitWidth="20" fitHeight="25">
                         <image>
                             <Image url="@../../assets/coin.png" /> <!-- Replace with your image file path -->
@@ -20,7 +20,7 @@
             </Pane>
             <Pane layoutX="14.0" layoutY="50.0" prefHeight="31.2" prefWidth="124.8" styleClass="playerlabel" stylesheets="styles.css">
                 <HBox spacing="30">
-                    <Label styleClass="player2label" stylesheets="styles.css" text="Player 2:" />
+                    <Label fx:id="player2" styleClass="player2label" stylesheets="styles.css" text="Player 2:" />
                     <ImageView fitWidth="20" fitHeight="25">
                         <image>
                             <Image url="@../../assets/coin.png" /> <!-- Replace with your image file path -->

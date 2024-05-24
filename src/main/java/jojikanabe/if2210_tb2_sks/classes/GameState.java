@@ -117,6 +117,16 @@ public class GameState implements ConfigController {
         return "Turn " + turn;
     }
 
+    public String getGuldenPemain1()
+    {
+        return "Player 1: " + pemain.get(0).getGulden();
+    }
+
+    public String getGuldenPemain2()
+    {
+        return "Player 2: " + pemain.get(1).getGulden();
+    }
+
     public Kartu getKartu(String nama) {
         for (Kartu kartu : dataKartu) {
             if (kartu.getNama().equals(nama)) {
