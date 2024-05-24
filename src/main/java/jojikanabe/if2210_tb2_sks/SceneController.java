@@ -36,6 +36,7 @@ public class SceneController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Parent enemyroot;
 
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
@@ -53,7 +54,6 @@ public class SceneController {
         } else {
             root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
         }
-        GameState.getInstance().LoadGame();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -64,11 +64,13 @@ public class SceneController {
         GameState.getInstance().nextTurn();
         if (GameState.getInstance().giliran == 2) {
             root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            enemyroot = FXMLLoader.load(getClass().getResource("Player1.fxml"));
         } else {
             root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            enemyroot = FXMLLoader.load(getClass().getResource("Player2.fxml"));
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        scene = new Scene(enemyroot);
         stage.setScene(scene);
         stage.show();
     }
@@ -368,5 +370,60 @@ public class SceneController {
         dialogPane.setStyle("-fx-background-color: #D0D0D0;");
 
         alert.showAndWait();
+    }
+
+    public void showLadangLawan(ActionEvent event) throws IOException {
+        GameState.getInstance().nextTurn();
+
+        // Determine the correct FXML file to load based on the turn
+        if (GameState.getInstance().giliran == 2) {
+            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+        }
+
+        // Set up the scene and stage
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+        // Find the deck buttons and set their opacity to 0
+        Button deck0 = (Button) scene.lookup("#deck0");
+        Button deck1 = (Button) scene.lookup("#deck1");
+        Button deck2 = (Button) scene.lookup("#deck2");
+        Button deck3 = (Button) scene.lookup("#deck3");
+        Button deck4 = (Button) scene.lookup("#deck4");
+        Button deck5 = (Button) scene.lookup("#deck5");
+
+        if (deck0 != null) deck0.setOpacity(0);
+        if (deck1 != null) deck1.setOpacity(0);
+        if (deck2 != null) deck2.setOpacity(0);
+        if (deck3 != null) deck3.setOpacity(0);
+        if (deck4 != null) deck4.setOpacity(0);
+        if (deck5 != null) deck5.setOpacity(0);
+
+        if (GameState.getInstance().giliran == 2)
+        {
+            GameState.getInstance().giliran = 1;
+        }
+        else
+        {
+            GameState.getInstance().giliran = 2;
+        }
+    }
+
+    public void showLadangku(ActionEvent event) throws IOException {
+        if (GameState.getInstance().giliran == 2) {
+            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+        }
+
+        // Set up the scene and stage
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
