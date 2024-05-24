@@ -5,8 +5,9 @@ public class ItemTrap extends Item {
         super("Trap", image);
     }
 
+
     @Override
-    public void efek() {
-        System.out.println("Efek item trap");
+    public void efek(int row, int col, int nomorPemain) throws Exception {
+        
     }
 }
