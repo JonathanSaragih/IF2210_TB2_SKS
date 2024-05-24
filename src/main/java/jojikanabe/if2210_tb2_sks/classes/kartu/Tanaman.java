@@ -1,5 +1,7 @@
 package jojikanabe.if2210_tb2_sks.classes.kartu;
 
+import jojikanabe.if2210_tb2_sks.classes.GameState;
+
 public class Tanaman extends Kartu implements Panen {
     private final Integer umurSiapPanen;
     private Integer umur;
@@ -23,7 +25,32 @@ public class Tanaman extends Kartu implements Panen {
     }
 
     @Override
-    public void panen() {
-        System.out.println("Tanaman panen");
+    public void panen(int row, int col, int nomorPemain) throws Exception {
+        GameState gameState = GameState.getInstance();
+        nomorPemain -= 1;
+        if (umur >= umurSiapPanen) {
+            String produkNama = getProdukNama();
+            if (produkNama != null) {
+                Kartu kartu = gameState.getKartu(produkNama);
+                updateLadang(nomorPemain, row, col, kartu);
+            } else {
+                throw new Exception("Tanaman tidak ditemukan");
+            }
+        } else {
+            throw new Exception("Tanaman belum siap panen");
+        }
+    }
+
+    private String getProdukNama() {
+        switch (nama) {
+            case "Biji Labu":
+                return "Labu";
+            case "Biji Jagung":
+                return "Jagung";
+            case "Biji Stroberi":
+                return "Stroberi";
+            default:
+                return null;
+        }
     }
 }
