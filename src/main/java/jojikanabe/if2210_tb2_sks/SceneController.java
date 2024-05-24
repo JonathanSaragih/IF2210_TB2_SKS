@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import jojikanabe.if2210_tb2_sks.classes.GameState;
 import jojikanabe.if2210_tb2_sks.classes.Ladang;
 import jojikanabe.if2210_tb2_sks.classes.Pemain;
@@ -38,6 +39,64 @@ public class SceneController {
     private Parent root;
     private Parent enemyroot;
     private boolean viewingOpponentField = false;
+    private Kartu selectedKartu = null;
+    @FXML
+    private Button deck0;
+    @FXML
+    private Button deck1;
+    @FXML
+    private Button deck2;
+    @FXML
+    private Button deck3;
+    @FXML
+    private Button deck4;
+    @FXML
+    private Button deck5;
+    private boolean isFromDeck = false;
+    @FXML
+    private Button A01;
+    @FXML
+    private Button A02;
+    @FXML
+    private Button A03;
+    @FXML
+    private Button A04;
+    @FXML
+    private Button A05;
+    @FXML
+    private Button B01;
+    @FXML
+    private Button B02;
+    @FXML
+    private Button B03;
+    @FXML
+    private Button B04;
+    @FXML
+    private Button B05;
+    @FXML
+    private Button C01;
+    @FXML
+    private Button C02;
+    @FXML
+    private Button C03;
+    @FXML
+    private Button C04;
+    @FXML
+    private Button C05;
+    @FXML
+    private Button D01;
+    @FXML
+    private Button D02;
+    @FXML
+    private Button D03;
+    @FXML
+    private Button D04;
+    @FXML
+    private Button D05;
+    private int selectedCardRow = -1;
+    private int selectedCardCol = -1;
+    @FXML
+    private Label turn, player1, player2;
 
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
@@ -155,10 +214,8 @@ public class SceneController {
         alert.setGraphic(imageView);
 
         alert.getButtonTypes().clear();
-
         alert.showAndWait();
     }
-
 
     private Button createButton(String nama, String harga, String value, String imagePath) {
         Button button = new Button(nama + "\n" + harga + "\n" + value);
@@ -177,28 +234,6 @@ public class SceneController {
 
         return button;
     }
-
-    private Kartu selectedKartu = null;
-
-    @FXML
-    private Button deck0;
-
-    @FXML
-    private Button deck1;
-
-    @FXML
-    private Button deck2;
-
-    @FXML
-    private Button deck3;
-
-    @FXML
-    private Button deck4;
-
-    @FXML
-    private Button deck5;
-
-    private boolean isFromDeck = false;
 
     public void addKartuToDeck() {
         List<Kartu> deckAktif;
@@ -244,69 +279,6 @@ public class SceneController {
         }
 
     }
-
-    @FXML
-    private Button A01;
-
-    @FXML
-    private Button A02;
-
-    @FXML
-    private Button A03;
-
-    @FXML
-    private Button A04;
-
-    @FXML
-    private Button A05;
-
-    @FXML
-    private Button B01;
-
-    @FXML
-    private Button B02;
-
-    @FXML
-    private Button B03;
-
-    @FXML
-    private Button B04;
-
-    @FXML
-    private Button B05;
-
-    @FXML
-    private Button C01;
-
-    @FXML
-    private Button C02;
-
-    @FXML
-    private Button C03;
-
-    @FXML
-    private Button C04;
-
-    @FXML
-    private Button C05;
-
-    @FXML
-    private Button D01;
-
-    @FXML
-    private Button D02;
-
-    @FXML
-    private Button D03;
-
-    @FXML
-    private Button D04;
-
-    @FXML
-    private Button D05;
-
-    private int selectedCardRow = -1;
-    private int selectedCardCol = -1;
 
     public void addKartuToLadang() {
         List<Button> ladangButtons = new ArrayList<>();
@@ -393,9 +365,6 @@ public class SceneController {
             });
         }
     }
-
-    @FXML
-    private Label turn, player1, player2;
 
     public void initialize() {
         if (GameState.getInstance().giliran != null) {
