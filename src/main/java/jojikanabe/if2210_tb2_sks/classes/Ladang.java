@@ -61,4 +61,10 @@ public class Ladang {
     public void removeKartu(int row, int col) {
         this.ladang.get(row).get(col).clear();
     }
+
+    public void addKartu(int row, int col, Kartu kartu) {
+        if (this.ladang.get(row).get(col).isEmpty()) {
+            this.ladang.get(row).get(col).put(kartu, new ArrayList<>());
+        }
+    }
 }
