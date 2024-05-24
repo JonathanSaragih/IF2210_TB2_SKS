@@ -130,7 +130,7 @@
 }
 
 .playerlabel {
-    -fx-background-color: #BDACA0;
+    -fx-background-color: #BDACA065;
     -fx-background-radius: 10;
 }
 
@@ -141,7 +141,6 @@
 }
 
 .player2label {
-    -fx-background-color: #BDACA065;
     -fx-background-radius: 10;
     -fx-font-size: 18px;
     -fx-padding: 0 0 0 5;
