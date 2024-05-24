@@ -24,6 +24,10 @@ public class Pemain {
         this.deckAktif.add(index, kartu);
     }
 
+    public void removeKartu(Kartu kartu) {
+        this.deckAktif.remove(kartu);
+    }
+
     public String getNama() {
         return nama;
     }

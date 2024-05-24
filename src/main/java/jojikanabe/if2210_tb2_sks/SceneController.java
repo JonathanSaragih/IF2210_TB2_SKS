@@ -1,5 +1,6 @@
 package jojikanabe.if2210_tb2_sks;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SceneController {
     private Stage stage;
@@ -89,6 +91,8 @@ public class SceneController {
         return button;
     }
 
+    private Kartu selectedKartu = null;
+
     @FXML
     private Button deck0;
 
@@ -107,6 +111,8 @@ public class SceneController {
     @FXML
     private Button deck5;
 
+    private boolean isFromDeck = false;
+
     public void addKartuToDeck() {
         List<Kartu> deckAktif;
         if (GameState.getInstance().giliran == 1) {
@@ -121,6 +127,12 @@ public class SceneController {
         deckButtons.add(deck3);
         deckButtons.add(deck4);
         deckButtons.add(deck5);
+
+        for (Button button : deckButtons) {
+            button.setText("");
+            button.setGraphic(null);
+            button.setOnAction(null);
+        }
 
         for (int i = 0; i < deckAktif.size(); i++) {
             Button button = deckButtons.get(i);
@@ -137,6 +149,11 @@ public class SceneController {
             button.setGraphic(imageView);
 
             button.setContentDisplay(ContentDisplay.TOP);
+
+            button.setOnAction(e -> {
+                selectedKartu = kartu;
+                isFromDeck = true;
+            });
         }
 
     }
@@ -201,6 +218,9 @@ public class SceneController {
     @FXML
     private Button D05;
 
+    private int selectedCardRow = -1;
+    private int selectedCardCol = -1;
+
     public void addKartuToLadang() {
         List<Button> ladangButtons = new ArrayList<>();
         ladangButtons.add(A01);
@@ -231,6 +251,12 @@ public class SceneController {
             ladang = GameState.getInstance().getPemain().get(1).getLadang();
         }
 
+        for (Button button : ladangButtons) {
+            button.setText("");
+            button.setGraphic(null);
+            button.setOnAction(null);
+        }
+
         for (int i = 0; i < 20; i++) {
             Button button = ladangButtons.get(i);
             Kartu kartu = ladang.getKartu(i / 5, i % 5);
@@ -248,6 +274,36 @@ public class SceneController {
 
                 button.setContentDisplay(ContentDisplay.TOP);
             }
+
+            int finalI = i;
+            int x = -1;
+            int y = -1;
+            button.setOnAction(e -> {
+                Pemain pemain = GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1);
+                if (selectedKartu != null) {
+                    if (pemain.getLadang().getKartu(finalI / 5, finalI % 5) == null) {
+                        pemain.getLadang().addKartu(finalI / 5, finalI % 5, selectedKartu);
+                        if (isFromDeck) {
+                            pemain.removeKartu(selectedKartu);
+                            selectedKartu = null;
+                            isFromDeck = false;
+                        } else {
+                            selectedKartu = null;
+                            pemain.getLadang().removeKartu(selectedCardRow, selectedCardCol);
+                            selectedCardRow = -1;
+                            selectedCardCol = -1;
+                        }
+                    }
+                } else if (kartu != null) {
+                    selectedKartu = kartu;
+                    selectedCardRow = finalI / 5;
+                    selectedCardCol = finalI % 5;
+                }
+                Platform.runLater(() -> {
+                    addKartuToDeck();
+                    addKartuToLadang();
+                });
+            });
         }
     }
 
