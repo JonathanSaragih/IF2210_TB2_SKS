@@ -9,7 +9,10 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -17,7 +20,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import jojikanabe.if2210_tb2_sks.classes.GameState;
 import jojikanabe.if2210_tb2_sks.classes.Ladang;
 import jojikanabe.if2210_tb2_sks.classes.Pemain;
@@ -36,6 +38,8 @@ public class SceneController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Parent enemyroot;
+    private boolean viewingOpponentField = false;
 
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
@@ -53,7 +57,6 @@ public class SceneController {
         } else {
             root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
         }
-        GameState.getInstance().LoadGame();
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -61,11 +64,24 @@ public class SceneController {
     }
 
     public void NextPlayer(ActionEvent event) throws IOException {
-        GameState.getInstance().nextTurn();
-        if (GameState.getInstance().giliran == 2) {
-            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+        if (viewingOpponentField) {
+            // If we are viewing the opponent's field, don't change the background
+            viewingOpponentField = false;
+            if (GameState.getInstance().giliran == 1) {
+                root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            }
         } else {
-            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            // Otherwise, proceed to the next turn and change the background
+            GameState.getInstance().nextTurn();
+            if (GameState.getInstance().giliran == 2) {
+                root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+                enemyroot = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+                enemyroot = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            }
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -75,15 +91,15 @@ public class SceneController {
 
     private Button createButton(String nama, String harga, String value, String imagePath) {
         Button button = new Button(nama + "\n" + harga + "\n" + value);
-        button.setPrefWidth(150); // Set the width of the button
-        button.setPrefHeight(100); // Set the height of the button
+        button.setPrefWidth(150);
+        button.setPrefHeight(100);
         button.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
 
         // Load the image
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(50); // Set the width of the image
-        imageView.setFitHeight(50); // Set the height of the image
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
 
         // Add the image to the button
         button.setGraphic(imageView);
@@ -307,20 +323,15 @@ public class SceneController {
         }
     }
 
-    @FXML
-    private Label turn;
-
     public void initialize() {
         if (GameState.getInstance().giliran != null) {
             addKartuToDeck();
             addKartuToLadang();
-            turn.setText(GameState.getInstance().getTurn());
         }
     }
 
     public void showTokoDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.initStyle(StageStyle.UNDECORATED);
         alert.setTitle("Catalog");
         alert.setHeaderText(null);
         alert.setContentText(null);
@@ -427,5 +438,83 @@ public class SceneController {
         dialogPane.setStyle("-fx-background-color: #D0D0D0;");
 
         alert.showAndWait();
+    }
+
+    public void showLadangLawan(ActionEvent event) throws IOException {
+        viewingOpponentField = true;
+        if (GameState.getInstance().giliran == 1) {
+            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+        }
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+        Platform.runLater(this::addOpponentKartuToLadang);
+        Platform.runLater(this::addKartuToDeck);
+    }
+
+    private void addOpponentKartuToLadang() {
+        List<Button> ladangButtons = new ArrayList<>();
+        ladangButtons.add((Button) scene.lookup("#A01"));
+        ladangButtons.add((Button) scene.lookup("#A02"));
+        ladangButtons.add((Button) scene.lookup("#A03"));
+        ladangButtons.add((Button) scene.lookup("#A04"));
+        ladangButtons.add((Button) scene.lookup("#A05"));
+        ladangButtons.add((Button) scene.lookup("#B01"));
+        ladangButtons.add((Button) scene.lookup("#B02"));
+        ladangButtons.add((Button) scene.lookup("#B03"));
+        ladangButtons.add((Button) scene.lookup("#B04"));
+        ladangButtons.add((Button) scene.lookup("#B05"));
+        ladangButtons.add((Button) scene.lookup("#C01"));
+        ladangButtons.add((Button) scene.lookup("#C02"));
+        ladangButtons.add((Button) scene.lookup("#C03"));
+        ladangButtons.add((Button) scene.lookup("#C04"));
+        ladangButtons.add((Button) scene.lookup("#C05"));
+        ladangButtons.add((Button) scene.lookup("#D01"));
+        ladangButtons.add((Button) scene.lookup("#D02"));
+        ladangButtons.add((Button) scene.lookup("#D03"));
+        ladangButtons.add((Button) scene.lookup("#D04"));
+        ladangButtons.add((Button) scene.lookup("#D05"));
+
+        Ladang ladang;
+        if (GameState.getInstance().giliran == 1) {
+            ladang = GameState.getInstance().getPemain().get(1).getLadang();
+        } else {
+            ladang = GameState.getInstance().getPemain().get(0).getLadang();
+        }
+
+        for (int i = 0; i < 20; i++) {
+            Button button = ladangButtons.get(i);
+            Kartu kartu = ladang.getKartu(i / 5, i % 5);
+            if (kartu != null) {
+                button.setText(kartu.getNama());
+                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu.getImage())));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(30);
+                imageView.setFitHeight(30);
+                button.setGraphic(imageView);
+                button.setContentDisplay(ContentDisplay.TOP);
+            } else {
+                button.setText("");
+                button.setGraphic(null);
+            }
+        }
+    }
+
+    public void showLadangku(ActionEvent event) throws IOException {
+        viewingOpponentField = false;
+        if (GameState.getInstance().giliran == 2) {
+            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
