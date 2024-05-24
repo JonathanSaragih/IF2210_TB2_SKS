@@ -22,6 +22,8 @@ import jojikanabe.if2210_tb2_sks.classes.GameState;
 import jojikanabe.if2210_tb2_sks.classes.Ladang;
 import jojikanabe.if2210_tb2_sks.classes.Pemain;
 import jojikanabe.if2210_tb2_sks.classes.Toko;
+import jojikanabe.if2210_tb2_sks.classes.kartu.Hewan;
+import jojikanabe.if2210_tb2_sks.classes.kartu.Item;
 import jojikanabe.if2210_tb2_sks.classes.kartu.Kartu;
 import jojikanabe.if2210_tb2_sks.classes.kartu.Produk;
 
@@ -412,6 +414,22 @@ public class SceneController {
                             pemain.getLadang().removeKartu(selectedCardRow, selectedCardCol);
                             selectedCardRow = -1;
                             selectedCardCol = -1;
+                        }
+                    } else {
+                        if (selectedKartu instanceof Produk && pemain.getLadang().getKartu(finalI / 5, finalI % 5) instanceof Hewan) {
+                            // TODO Hewan makan
+                            try {
+                                ((Hewan) pemain.getLadang().getKartu(finalI / 5, finalI % 5)).makan(selectedKartu);
+                                pemain.removeKartu(selectedKartu);
+                                selectedKartu = null;
+                                isFromDeck = false;
+                            } catch (Exception ex) {
+                                System.out.println(ex.getMessage());
+                            }
+                        } else if (selectedKartu instanceof Item) {
+                            // TODO Item digunakan
+                        } else {
+                            // Bukan produk atau item
                         }
                     }
                 } else if (kartu != null) {
