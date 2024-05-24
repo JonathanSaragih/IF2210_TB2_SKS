@@ -147,7 +147,18 @@ public class SceneController {
         showAlert();
     }
 
+    private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
+
+    private Kartu kartu1, kartu2, kartu3, kartu4;
+
     private void showAlert() {
+        Pemain pemain;
+        if (GameState.getInstance().giliran == 1) {
+            pemain = GameState.getInstance().getPemain().get(0);
+        } else {
+            pemain = GameState.getInstance().getPemain().get(1);
+        }
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
         alert.setHeaderText(null);
@@ -158,32 +169,60 @@ public class SceneController {
         gridPane.setTranslateX(20);
         gridPane.setTranslateY(10);
 
-        Button button1 = new Button("");
-        button1.setPrefWidth(150);
-        button1.setPrefHeight(250);
+        kartu1 = pemain.getDeck().getKartuRandom();
+        kartu2 = pemain.getDeck().getKartuRandom();
+        kartu3 = pemain.getDeck().getKartuRandom();
+        kartu4 = pemain.getDeck().getKartuRandom();
 
-        Button button2 = new Button("");
-        button2.setPrefWidth(150);
-        button2.setPrefHeight(250);
+        buttonShuffle1 = createButtonShuffle(kartu1.getNama(), kartu1.getImage());
+        buttonShuffle2 = createButtonShuffle(kartu2.getNama(), kartu2.getImage());
+        buttonShuffle3 = createButtonShuffle(kartu3.getNama(), kartu3.getImage());
+        buttonShuffle4 = createButtonShuffle(kartu4.getNama(), kartu4.getImage());
 
-        Button button3 = new Button("");
-        button3.setPrefWidth(150);
-        button3.setPrefHeight(250);
-
-        Button button4 = new Button("");
-        button4.setPrefWidth(150);
-        button4.setPrefHeight(250);
-
-        gridPane.add(button1, 0, 0);
-        gridPane.add(button2, 1, 0);
-        gridPane.add(button3, 0, 1);
-        gridPane.add(button4, 1, 1);
+        gridPane.add(buttonShuffle1, 0, 0);
+        gridPane.add(buttonShuffle2, 1, 0);
+        gridPane.add(buttonShuffle3, 0, 1);
+        gridPane.add(buttonShuffle4, 1, 1);
 
         Button regenerateButton = new Button("Regenerate");
         regenerateButton.setPrefWidth(100);
         regenerateButton.setTranslateX(-5);
         regenerateButton.setTranslateY(10);
         regenerateButton.setId("regenerateButton");
+        regenerateButton.setOnAction(e -> {
+            pemain.getDeck().addKartu(kartu1);
+            pemain.getDeck().addKartu(kartu2);
+            pemain.getDeck().addKartu(kartu3);
+            pemain.getDeck().addKartu(kartu4);
+            kartu1 = pemain.getDeck().getKartuRandom();
+            kartu2 = pemain.getDeck().getKartuRandom();
+            kartu3 = pemain.getDeck().getKartuRandom();
+            kartu4 = pemain.getDeck().getKartuRandom();
+            buttonShuffle1.setText(kartu1.getNama());
+            buttonShuffle2.setText(kartu2.getNama());
+            buttonShuffle3.setText(kartu3.getNama());
+            buttonShuffle4.setText(kartu4.getNama());
+            Image image1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu1.getImage())));
+            ImageView imageView1 = new ImageView(image1);
+            imageView1.setFitWidth(50);
+            imageView1.setFitHeight(50);
+            buttonShuffle1.setGraphic(imageView1);
+            Image image2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu2.getImage())));
+            ImageView imageView2 = new ImageView(image2);
+            imageView2.setFitWidth(50);
+            imageView2.setFitHeight(50);
+            buttonShuffle2.setGraphic(imageView2);
+            Image image3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu3.getImage())));
+            ImageView imageView3 = new ImageView(image3);
+            imageView3.setFitWidth(50);
+            imageView3.setFitHeight(50);
+            buttonShuffle3.setGraphic(imageView3);
+            Image image4 = new Image(Objects.requireNonNull(getClass().getResourceAsStream(kartu4.getImage())));
+            ImageView imageView4 = new ImageView(image4);
+            imageView4.setFitWidth(50);
+            imageView4.setFitHeight(50);
+            buttonShuffle4.setGraphic(imageView4);
+        });
 
         Button confirmButton = new Button("Confirm");
         confirmButton.setPrefWidth(100);
@@ -193,6 +232,10 @@ public class SceneController {
         confirmButton.setOnAction(e -> {
             alert.setResult(ButtonType.OK); // Set the result to OK (or any other type if needed)
             alert.hide(); // Close the alert dialog
+            pemain.getDeckAktif().add(kartu1);
+            pemain.getDeckAktif().add(kartu2);
+            pemain.getDeckAktif().add(kartu3);
+            pemain.getDeckAktif().add(kartu4);
         });
 
         VBox vbox = new VBox(10);
@@ -230,6 +273,25 @@ public class SceneController {
 
         // Add the image to the button
         button.setGraphic(imageView);
+
+        return button;
+    }
+
+    private Button createButtonShuffle(String nama, String imagePath) {
+        Button button = new Button(nama);
+        button.setPrefWidth(150);
+        button.setPrefHeight(250);
+        button.setStyle("-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 0;");
+
+        // Load the image
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        // Add the image to the button
+        button.setGraphic(imageView);
+        button.setContentDisplay(ContentDisplay.TOP);
 
         return button;
     }
