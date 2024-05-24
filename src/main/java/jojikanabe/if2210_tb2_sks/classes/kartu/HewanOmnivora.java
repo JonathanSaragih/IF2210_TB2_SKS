@@ -6,7 +6,7 @@ public class HewanOmnivora extends Hewan {
     }
 
     @Override
-    void makan(Kartu kartu) throws Exception {
+    public void makan(Kartu kartu) throws Exception {
         if (kartu instanceof Produk) {
             Produk produk = (Produk) kartu;
             this.beratBadan += produk.getKalori();

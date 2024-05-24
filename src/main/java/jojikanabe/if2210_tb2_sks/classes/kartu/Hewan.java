@@ -24,7 +24,7 @@ public abstract class Hewan extends Kartu implements Panen {
         return beratBadanSiapPanen;
     }
 
-    abstract void makan(Kartu kartu) throws Exception;
+    public abstract void makan(Kartu kartu) throws Exception;
 
     private String getProdukNama() {
         switch (nama) {
