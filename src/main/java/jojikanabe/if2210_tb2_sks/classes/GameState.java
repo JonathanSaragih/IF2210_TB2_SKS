@@ -110,6 +110,8 @@ public class GameState implements ConfigController {
 
     public void nextTurn() {
         giliran = giliran == 1 ? 2 : 1;
+        pemain.get(0).getLadang().nextTurn();
+        pemain.get(1).getLadang().nextTurn();
         turn++;
     }
 
@@ -117,13 +119,11 @@ public class GameState implements ConfigController {
         return "Turn " + turn;
     }
 
-    public String getGuldenPemain1()
-    {
+    public String getGuldenPemain1() {
         return "Player 1: " + pemain.get(0).getGulden();
     }
 
-    public String getGuldenPemain2()
-    {
+    public String getGuldenPemain2() {
         return "Player 2: " + pemain.get(1).getGulden();
     }
 

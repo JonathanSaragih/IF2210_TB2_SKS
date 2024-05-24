@@ -3,6 +3,7 @@ package jojikanabe.if2210_tb2_sks.classes;
 import javafx.util.Pair;
 import jojikanabe.if2210_tb2_sks.classes.kartu.Item;
 import jojikanabe.if2210_tb2_sks.classes.kartu.Kartu;
+import jojikanabe.if2210_tb2_sks.classes.kartu.Tanaman;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +66,17 @@ public class Ladang {
     public void addKartu(int row, int col, Kartu kartu) {
         if (this.ladang.get(row).get(col).isEmpty()) {
             this.ladang.get(row).get(col).put(kartu, new ArrayList<>());
+        }
+    }
+
+    public void nextTurn() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (getKartu(i, j) instanceof Tanaman) {
+                    Tanaman tanaman = (Tanaman) getKartu(i, j);
+                    tanaman.setUmur(tanaman.getUmur() + 1);
+                }
+            }
         }
     }
 }
