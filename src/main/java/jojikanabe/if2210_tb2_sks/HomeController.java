@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,6 +24,8 @@ public class HomeController {
     private Scene scene;
     private Parent root;
 
+    private TextField folderTextField;
+
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
         root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
@@ -32,19 +35,17 @@ public class HomeController {
         stage.show();
     }
 
-
     public void showLoadGameDialog(ActionEvent event) {
         Stage dialogStage = new Stage();
-        dialogStage.initStyle(StageStyle.UTILITY);
+        dialogStage.initStyle(StageStyle.UNDECORATED);
         dialogStage.setTitle("Load Game");
 
-        // Create a pane and set the background color
         VBox vbox = new VBox();
         vbox.setLayoutX(50);
         vbox.setLayoutY(20);
 
         Pane pane = new Pane();
-        pane.setStyle("-fx-background-color: #564457;");
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
 
         GridPane gridPane = new GridPane();
         gridPane.setPrefWidth(300);
@@ -77,12 +78,13 @@ public class HomeController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-//                GameState.getInstance().LoadGame();
-                showLoadGameResultDialog("STATE LOADED SUCCESSFULLY", dialogStage, event);
+                GameState.getInstance().LoadGame();
+                showLoadGameResultDialog("STATE LOADED SUCCESSFULLY", event);
             } catch (Exception ex) {
-                showLoadGameResultDialog("FAILED TO LOAD STATE", dialogStage, event);
+                showLoadGameResultDialog("FAILED TO LOAD STATE", event);
                 ex.printStackTrace();
             }
+            dialogStage.close();
         });
 
         vbox.getChildren().add(gridPane);
@@ -91,18 +93,29 @@ public class HomeController {
         pane.getChildren().add(vbox);
 
         Scene dialogScene = new Scene(pane, 400, 200);
+
+        // Add an event filter to close the dialog when clicking outside of it
+        dialogScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                dialogStage.close();
+            }
+        });
+
         dialogStage.setScene(dialogScene);
         dialogStage.showAndWait();
     }
 
-    private void showLoadGameResultDialog(String message, Stage parentStage, ActionEvent originalEvent) {
+    private void showLoadGameResultDialog(String message, ActionEvent originalEvent) {
+        Stage resultDialogStage = new Stage();
+        resultDialogStage.initStyle(StageStyle.UNDECORATED);
+
         VBox vbox = new VBox();
         vbox.setLayoutX(50);
         vbox.setLayoutY(20);
         vbox.setSpacing(10);
 
         Pane pane = new Pane();
-        pane.setStyle("-fx-background-color: #564457;");
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
 
         Label messageLabel = new Label(message);
         messageLabel.setStyle("-fx-text-fill: green; -fx-font-size: 14;");
@@ -110,31 +123,39 @@ public class HomeController {
         Button okButton = new Button("OK");
         okButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 100; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
         okButton.setOnAction(e -> {
-            parentStage.close();
+            resultDialogStage.close();
             try {
-                loadGameAndSwitchScene(e);
+                loadGameAndSwitchScene(originalEvent);
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         });
 
-        Button backButton = new Button("Kembali");
-        backButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 100; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
-        backButton.setOnAction(e -> parentStage.close());
-
-        vbox.getChildren().addAll(messageLabel, okButton, backButton);
+        vbox.getChildren().addAll(messageLabel, okButton);
         pane.getChildren().add(vbox);
 
         Scene resultScene = new Scene(pane, 400, 200);
-        parentStage.setScene(resultScene);
+
+        // Add an event filter to close the dialog when clicking outside of it
+        resultScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                resultDialogStage.close();
+            }
+        });
+
+        resultDialogStage.setScene(resultScene);
+        resultDialogStage.showAndWait();
+    }
+
+    public void getLoad() {
+        String text = folderTextField.getText();
     }
 
     private void loadGameAndSwitchScene(ActionEvent event) throws IOException {
-        GameState.getInstance().LoadGame();
         if (GameState.getInstance().giliran % 2 == 1) {
-            root = FXMLLoader.load(getClass().getResource("player1.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
         } else {
-            root = FXMLLoader.load(getClass().getResource("player2.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
         }
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

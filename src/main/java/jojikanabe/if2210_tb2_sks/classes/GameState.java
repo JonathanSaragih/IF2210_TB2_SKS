@@ -110,6 +110,11 @@ public class GameState implements ConfigController {
 
     public void nextTurn() {
         giliran = giliran == 1 ? 2 : 1;
+        turn++;
+    }
+
+    public String getTurn() {
+        return "Turn " + turn;
     }
 
     public Kartu getKartu(String nama) {
@@ -129,7 +134,12 @@ public class GameState implements ConfigController {
             int i = 0;
             while ((line = br.readLine()) != null) {
                 if (i == 0) {
-                    giliran = Integer.parseInt(line);
+                    turn = Integer.parseInt(line);
+                    if (turn % 2 == 0) {
+                        giliran = 2;
+                    } else {
+                        giliran = 1;
+                    }
                 } else if (i == 1) {
 
                 } else {
