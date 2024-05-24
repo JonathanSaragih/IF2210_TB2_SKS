@@ -28,6 +28,7 @@
     -fx-min-width: 164;
     -fx-min-height: 84;
     -fx-color: #77543e;
+    -fx-cursor: hand;
 }
 
 .player1box {
@@ -56,6 +57,8 @@
 .hay1:hover {
     -fx-min-width: 64;
     -fx-min-height: 64;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0, 0, 5);
 }
 
 .hay2 {
@@ -66,6 +69,8 @@
 .hay2:hover {
     -fx-min-width: 64;
     -fx-min-height: 64;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0, 0, 5);
 }
 
 .hay3 {
@@ -76,6 +81,8 @@
 .hay3:hover {
     -fx-min-width: 64;
     -fx-min-height: 64;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0, 0, 5);
 }
 
 .hay4 {
@@ -86,6 +93,8 @@
 .hay4:hover {
     -fx-min-width: 64;
     -fx-min-height: 64;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0, 0, 5);
 }
 
 .hay5 {
@@ -96,6 +105,8 @@
 .hay5:hover {
     -fx-min-width: 64;
     -fx-min-height: 64;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0, 0, 5);
 }
 
 .card-deck {
@@ -115,17 +126,18 @@
 .side-button:hover {
     -fx-background-color: #5e5e5e;
     -fx-text-fill: #BDACA0;
+    -fx-cursor: hand;
 }
 
 .player1label {
-    -fx-background-color: #BDACA0;
+    -fx-background-color: #BDACA065;
     -fx-background-radius: 10;
     -fx-font-size: 18px;
     -fx-padding: 0 0 0 5;
 }
 
 .player2label {
-    -fx-background-color: #BDACA0;
+    -fx-background-color: #BDACA065;
     -fx-background-radius: 10;
     -fx-font-size: 18px;
     -fx-padding: 0 0 0 5;
@@ -140,6 +152,7 @@
 .playerbutton:hover {
     -fx-background-color: #4B78ED;
     -fx-text-fill: #C6DEE1;
+    -fx-cursor: hand;
 }
 
 .turn1 {
@@ -160,4 +173,15 @@
 
 .text-turn:hover {
     -fx-font-size: 18px;
+}
+
+.card-deck:hover {
+    -fx-border-color: #000000;
+    -fx-border-width: 1.5;
+    -fx-cursor: hand;
+}
+
+.card-shuffle:hover {
+    -fx-pref-height: 100;
+    -fx-cursor: hand;
 }
