@@ -130,7 +130,7 @@
 }
 
 .playerlabel {
-    -fx-background-color: #BDACA0;
+    -fx-background-color: #BDACA065;
     -fx-background-radius: 10;
 }
 
@@ -141,7 +141,6 @@
 }
 
 .player2label {
-    -fx-background-color: #BDACA065;
     -fx-background-radius: 10;
     -fx-font-size: 18px;
     -fx-padding: 0 0 0 5;
@@ -188,4 +187,42 @@
 .card-shuffle:hover {
     -fx-pref-height: 100;
     -fx-cursor: hand;
+}
+
+.dialog-pane {
+    -fx-background-color: #564457;
+    -fx-border-width: 3;
+    -fx-border-color: #DBCF72;
+}
+
+#regenerateButton {
+    -fx-background-color: #1C2045;
+    -fx-background-radius: 7;
+    -fx-text-fill: #DBCF72;
+    -fx-border-radius: 5;
+    -fx-border-width: 1.5;
+    -fx-border-color: #DBCF72;
+}
+
+#regenerateButton:hover {
+    -fx-background-color: #DBCF72;
+    -fx-text-fill: #1C2045;
+    -fx-cursor: hand;
+    -fx-border-color: #1C2045;
+}
+
+#confirmButton {
+    -fx-background-color: #1C2045;
+    -fx-background-radius: 7;
+    -fx-text-fill: #DBCF72;
+    -fx-border-radius: 5;
+    -fx-border-width: 1.5;
+    -fx-border-color: #DBCF72;
+}
+
+#confirmButton:hover {
+    -fx-background-color: #DBCF72;
+    -fx-text-fill: #1C2045;
+    -fx-cursor: hand;
+    -fx-border-color: #1C2045;
 }

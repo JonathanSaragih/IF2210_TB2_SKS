@@ -2,13 +2,13 @@ package jojikanabe.if2210_tb2_sks;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -32,6 +32,7 @@ public class HomeController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -45,7 +46,7 @@ public class HomeController {
         vbox.setLayoutY(20);
 
         Pane pane = new Pane();
-        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: #DBCF72; -fx-border-width: 2;");
 
         GridPane gridPane = new GridPane();
         gridPane.setPrefWidth(300);
@@ -54,9 +55,9 @@ public class HomeController {
         gridPane.setStyle("-fx-padding: 10 0 10 0;");
 
         Label formatLabel = new Label("FORMAT:");
-        formatLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+        formatLabel.setStyle("-fx-text-fill: #DBCF72; -fx-font-size: 14; -fx-pref-width: 70");
         Label folderLabel = new Label("FOLDER:");
-        folderLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+        folderLabel.setStyle("-fx-text-fill: #DBCF72; -fx-font-size: 14; -fx-pref-width: 70");
 
         ChoiceBox<String> formatChoiceBox = new ChoiceBox<>();
         formatChoiceBox.getItems().add("txt");
@@ -115,10 +116,10 @@ public class HomeController {
         vbox.setSpacing(10);
 
         Pane pane = new Pane();
-        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: #DBCF72; -fx-border-width: 2;");
 
         Label messageLabel = new Label(message);
-        messageLabel.setStyle("-fx-text-fill: green; -fx-font-size: 14;");
+        messageLabel.setStyle("-fx-text-fill: #3b9f3b; -fx-font-size: 14;");
 
         Button okButton = new Button("OK");
         okButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 100; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
@@ -160,6 +161,75 @@ public class HomeController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setHeaderText(null);
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setTranslateX(20);
+        gridPane.setTranslateY(10);
+
+        Button button1 = new Button("");
+        button1.setPrefWidth(150);
+        button1.setPrefHeight(250);
+
+        Button button2 = new Button("");
+        button2.setPrefWidth(150);
+        button2.setPrefHeight(250);
+
+        Button button3 = new Button("");
+        button3.setPrefWidth(150);
+        button3.setPrefHeight(250);
+
+        Button button4 = new Button("");
+        button4.setPrefWidth(150);
+        button4.setPrefHeight(250);
+
+        gridPane.add(button1, 0, 0);
+        gridPane.add(button2, 1, 0);
+        gridPane.add(button3, 0, 1);
+        gridPane.add(button4, 1, 1);
+
+        Button regenerateButton = new Button("Regenerate");
+        regenerateButton.setPrefWidth(100);
+        regenerateButton.setTranslateX(-5);
+        regenerateButton.setTranslateY(10);
+        regenerateButton.setId("regenerateButton");
+
+        Button confirmButton = new Button("Confirm");
+        confirmButton.setPrefWidth(100);
+        confirmButton.setTranslateX(-5);
+        confirmButton.setTranslateY(10);
+        confirmButton.setId("confirmButton");
+        confirmButton.setOnAction(e -> {
+            alert.setResult(ButtonType.OK); // Set the result to OK (or any other type if needed)
+            alert.hide(); // Close the alert dialog
+        });
+
+        VBox vbox = new VBox(10);
+        vbox.setAlignment(Pos.CENTER); // Center align vertically
+        vbox.getChildren().addAll(gridPane, regenerateButton, confirmButton);
+
+        // Center align gridPane horizontally
+        GridPane.setHalignment(gridPane, HPos.CENTER);
+
+        alert.getDialogPane().setContent(vbox);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        dialogPane.setPrefSize(400, 500);
+
+        ImageView imageView = new ImageView();
+        imageView.setImage(null);
+        alert.setGraphic(imageView);
+
+        alert.getButtonTypes().clear();
+
+        alert.showAndWait();
     }
 }
