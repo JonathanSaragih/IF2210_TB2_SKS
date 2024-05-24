@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,10 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jojikanabe.if2210_tb2_sks.classes.GameState;
@@ -484,6 +483,330 @@ public class SceneController {
         dialogPane.setStyle("-fx-background-color: #D0D0D0;");
 
         alert.showAndWait();
+    }
+
+    public void showLoadPluginDialog(ActionEvent event) {
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+        dialogStage.setTitle("Load Plugin");
+
+        VBox vbox = new VBox();
+        vbox.setLayoutX(50);
+        vbox.setLayoutY(20);
+
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
+
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefWidth(300);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setStyle("-fx-padding: 40 0 10 0;");
+
+        Button backButton = new Button("Back");
+        backButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 50; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        backButton.setOnAction(e -> dialogStage.close());
+
+        // Create a BorderPane
+        BorderPane borderPane = new BorderPane();
+
+        // Set backButton to the left of the BorderPane
+        borderPane.setLeft(backButton);
+
+        // Add vbox to the center of the BorderPane
+        borderPane.setCenter(vbox);
+        // Create an Insets object with top and left margins
+        Insets margin = new Insets(10, 0, 0, 30); // 5 units for top and left margins
+        // Apply the margin to backButton
+        borderPane.setMargin(backButton, margin);
+
+        // Add the BorderPane to the pane
+        pane.getChildren().add(borderPane);
+
+        Label formatLabel = new Label("FORMAT:");
+        formatLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+        Label folderLabel = new Label("FOLDER:");
+        folderLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+
+        ChoiceBox<String> formatChoiceBox = new ChoiceBox<>();
+        formatChoiceBox.getItems().add("txt");
+        formatChoiceBox.setValue("txt");
+        formatChoiceBox.setStyle("-fx-pref-width: 230");
+
+        TextField folderTextField = new TextField();
+        folderTextField.setPrefWidth(230);
+
+        gridPane.add(formatLabel, 0, 0);
+        gridPane.add(formatChoiceBox, 1, 0);
+        gridPane.add(folderLabel, 0, 1);
+        gridPane.add(folderTextField, 1, 1);
+
+        Button loadButton = new Button("LOAD PLUGIN");
+        loadButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 300; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+
+        loadButton.setOnAction(e -> {
+            String format = formatChoiceBox.getValue();
+            String folder = folderTextField.getText();
+            try {
+                GameState.getInstance().LoadGame();
+                showResultDialog("PLUGIN LOADED SUCCESSFULLY", event);
+            } catch (Exception ex) {
+                showResultDialog("FAILED TO LOAD PLUGIN", event);
+                ex.printStackTrace();
+            }
+            dialogStage.close();
+        });
+
+        vbox.getChildren().add(gridPane);
+        vbox.getChildren().add(loadButton);
+
+        pane.getChildren().add(vbox);
+
+        Scene dialogScene = new Scene(pane, 400, 200);
+
+        // Add an event filter to close the dialog when clicking outside of it
+        dialogScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                dialogStage.close();
+            }
+        });
+
+        dialogStage.setScene(dialogScene);
+        dialogStage.showAndWait();
+    }
+
+    public void showLoadStateDialog(ActionEvent event) {
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+        dialogStage.setTitle("Load State");
+
+        VBox vbox = new VBox();
+        vbox.setLayoutX(50);
+        vbox.setLayoutY(20);
+
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
+
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefWidth(300);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setStyle("-fx-padding: 40 0 10 0;");
+
+        Button backButton = new Button("Back");
+        backButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 50; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        backButton.setOnAction(e -> dialogStage.close());
+
+        // Create a BorderPane
+        BorderPane borderPane = new BorderPane();
+
+        // Set backButton to the left of the BorderPane
+        borderPane.setLeft(backButton);
+
+        // Add vbox to the center of the BorderPane
+        borderPane.setCenter(vbox);
+        // Create an Insets object with top and left margins
+        Insets margin = new Insets(10, 0, 0, 30); // 5 units for top and left margins
+        // Apply the margin to backButton
+        borderPane.setMargin(backButton, margin);
+
+        // Add the BorderPane to the pane
+        pane.getChildren().add(borderPane);
+
+        Label formatLabel = new Label("FORMAT:");
+        formatLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+        Label folderLabel = new Label("FOLDER:");
+        folderLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+
+        ChoiceBox<String> formatChoiceBox = new ChoiceBox<>();
+        formatChoiceBox.getItems().add("txt");
+        formatChoiceBox.setValue("txt");
+        formatChoiceBox.setStyle("-fx-pref-width: 230");
+
+        TextField folderTextField = new TextField();
+        folderTextField.setPrefWidth(230);
+
+        gridPane.add(formatLabel, 0, 0);
+        gridPane.add(formatChoiceBox, 1, 0);
+        gridPane.add(folderLabel, 0, 1);
+        gridPane.add(folderTextField, 1, 1);
+
+        Button loadButton = new Button("LOAD STATE");
+        loadButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 300; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+
+        loadButton.setOnAction(e -> {
+            String format = formatChoiceBox.getValue();
+            String folder = folderTextField.getText();
+            try {
+                GameState.getInstance().LoadGame();
+                showResultDialog("STATE LOADED SUCCESSFULLY", event);
+            } catch (Exception ex) {
+                showResultDialog("FAILED TO LOAD STATE", event);
+                ex.printStackTrace();
+            }
+            dialogStage.close();
+        });
+
+        vbox.getChildren().add(gridPane);
+        vbox.getChildren().add(loadButton);
+
+        pane.getChildren().add(vbox);
+
+        Scene dialogScene = new Scene(pane, 400, 200);
+
+        // Add an event filter to close the dialog when clicking outside of it
+        dialogScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                dialogStage.close();
+            }
+        });
+
+        dialogStage.setScene(dialogScene);
+        dialogStage.showAndWait();
+    }
+
+    public void showSaveStateDialog(ActionEvent event) {
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+        dialogStage.setTitle("Save State");
+
+        VBox vbox = new VBox();
+        vbox.setLayoutX(50);
+        vbox.setLayoutY(20);
+
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
+
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefWidth(300);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setStyle("-fx-padding: 40 0 10 0;");
+
+        Button backButton = new Button("Back");
+        backButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 50; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        backButton.setOnAction(e -> dialogStage.close());
+
+        // Create a BorderPane
+        BorderPane borderPane = new BorderPane();
+
+        // Set backButton to the left of the BorderPane
+        borderPane.setLeft(backButton);
+
+        // Add vbox to the center of the BorderPane
+        borderPane.setCenter(vbox);
+        // Create an Insets object with top and left margins
+        Insets margin = new Insets(10, 0, 0, 30); // 5 units for top and left margins
+        // Apply the margin to backButton
+        borderPane.setMargin(backButton, margin);
+
+        // Add the BorderPane to the pane
+        pane.getChildren().add(borderPane);
+
+        Label formatLabel = new Label("FORMAT:");
+        formatLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+        Label folderLabel = new Label("FOLDER:");
+        folderLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14; -fx-pref-width: 70");
+
+        ChoiceBox<String> formatChoiceBox = new ChoiceBox<>();
+        formatChoiceBox.getItems().add("txt");
+        formatChoiceBox.setValue("txt");
+        formatChoiceBox.setStyle("-fx-pref-width: 230");
+
+        TextField folderTextField = new TextField();
+        folderTextField.setPrefWidth(230);
+
+        gridPane.add(formatLabel, 0, 0);
+        gridPane.add(formatChoiceBox, 1, 0);
+        gridPane.add(folderLabel, 0, 1);
+        gridPane.add(folderTextField, 1, 1);
+
+        Button loadButton = new Button("SAVE STATE");
+        loadButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 300; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+
+        loadButton.setOnAction(e -> {
+            String format = formatChoiceBox.getValue();
+            String folder = folderTextField.getText();
+            try {
+                GameState.getInstance().LoadGame();
+                showResultDialog("STATE SAVED SUCCESSFULLY", event);
+            } catch (Exception ex) {
+                showResultDialog("FAILED TO SAVE STATE", event);
+                ex.printStackTrace();
+            }
+            dialogStage.close();
+        });
+
+        vbox.getChildren().add(gridPane);
+        vbox.getChildren().add(loadButton);
+
+        pane.getChildren().add(vbox);
+
+        Scene dialogScene = new Scene(pane, 400, 200);
+
+        // Add an event filter to close the dialog when clicking outside of it
+        dialogScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                dialogStage.close();
+            }
+        });
+
+        dialogStage.setScene(dialogScene);
+        dialogStage.showAndWait();
+    }
+
+    private void showResultDialog(String message, ActionEvent originalEvent) {
+        Stage resultDialogStage = new Stage();
+        resultDialogStage.initStyle(StageStyle.UNDECORATED);
+
+        VBox vbox = new VBox();
+        vbox.setLayoutX(50);
+        vbox.setLayoutY(20);
+        vbox.setSpacing(10);
+
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #564457; -fx-border-color: yellow; -fx-border-width: 2;");
+
+        Label messageLabel = new Label(message);
+        messageLabel.setStyle("-fx-text-fill: green; -fx-font-size: 14;");
+
+        Button okButton = new Button("OK");
+        okButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 100; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        okButton.setOnAction(e -> {
+            resultDialogStage.close();
+            try {
+                SwitchScene(originalEvent);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        });
+
+        vbox.getChildren().addAll(messageLabel, okButton);
+        pane.getChildren().add(vbox);
+
+        Scene resultScene = new Scene(pane, 400, 200);
+
+        // Add an event filter to close the dialog when clicking outside of it
+        resultScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                resultDialogStage.close();
+            }
+        });
+
+        resultDialogStage.setScene(resultScene);
+        resultDialogStage.showAndWait();
+    }
+
+    private void SwitchScene(ActionEvent event) throws IOException {
+        if (GameState.getInstance().giliran % 2 == 1) {
+            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void showLadangLawan(ActionEvent event) throws IOException {
