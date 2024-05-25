@@ -404,16 +404,18 @@ public class SceneController {
                 Pemain pemain = GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1);
                 if (selectedKartu != null) {
                     if (pemain.getLadang().getKartu(finalI / 5, finalI % 5) == null) {
-                        pemain.getLadang().addKartu(finalI / 5, finalI % 5, selectedKartu);
-                        if (isFromDeck) {
-                            pemain.removeKartu(selectedKartu);
-                            selectedKartu = null;
-                            isFromDeck = false;
-                        } else {
-                            selectedKartu = null;
-                            pemain.getLadang().removeKartu(selectedCardRow, selectedCardCol);
-                            selectedCardRow = -1;
-                            selectedCardCol = -1;
+                        if (selectedKartu instanceof Hewan || selectedKartu instanceof Tanaman) {
+                            pemain.getLadang().addKartu(finalI / 5, finalI % 5, selectedKartu);
+                            if (isFromDeck) {
+                                pemain.removeKartu(selectedKartu);
+                                selectedKartu = null;
+                                isFromDeck = false;
+                            } else {
+                                selectedKartu = null;
+                                pemain.getLadang().removeKartu(selectedCardRow, selectedCardCol);
+                                selectedCardRow = -1;
+                                selectedCardCol = -1;
+                            }
                         }
                     } else {
                         if (selectedKartu instanceof Produk && pemain.getLadang().getKartu(finalI / 5, finalI % 5) instanceof Hewan) {
