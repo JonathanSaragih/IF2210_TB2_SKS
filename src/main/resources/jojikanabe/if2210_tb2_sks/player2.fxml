@@ -28,6 +28,7 @@
                     </ImageView>
                 </HBox>
             </Pane>
+            <Label fx:id="bearAttackTimer" layoutX="14.0" layoutY="100.0" prefHeight="31.2" prefWidth="124.8" styleClass="playerlabel" stylesheets="styles.css" text="Bear Attack: 0s"/>
             <Button layoutY="14.0" layoutX="300.0" mnemonicParsing="false" onAction="#NextPlayer" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Next"/>
             <Button layoutY="14.0" layoutX="415.0" mnemonicParsing="false" onAction="#Refresh" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Refresh"/>
             <Pane layoutX="500.0" prefHeight="112" prefWidth="112" stylesheets="styles.css" styleClass="turn2">

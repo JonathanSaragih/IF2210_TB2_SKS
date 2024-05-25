@@ -22,10 +22,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import jojikanabe.if2210_tb2_sks.classes.GameState;
-import jojikanabe.if2210_tb2_sks.classes.Ladang;
-import jojikanabe.if2210_tb2_sks.classes.Pemain;
-import jojikanabe.if2210_tb2_sks.classes.Toko;
+import jojikanabe.if2210_tb2_sks.classes.*;
 import jojikanabe.if2210_tb2_sks.classes.kartu.*;
 
 import java.io.IOException;
@@ -100,6 +97,12 @@ public class SceneController {
     private int selectedCardCol = -1;
     @FXML
     private Label turn, player1, player2;
+    private BearAttack bearAttack;
+    private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
+    private Kartu kartu1, kartu2, kartu3, kartu4;
+    @FXML
+    private Label bearAttackTimer;
+    private Kartu kartuToko;
 
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
@@ -110,8 +113,26 @@ public class SceneController {
         stage.show();
     }
 
+    public void bearAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Bear Alert");
+        alert.setHeaderText(null);
+        alert.setContentText("Awasssss diserang beruang!");
+        
+
+        // Customize the dialog pane
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("alert-dialog");
+
+        // Show the alert dialog
+        alert.showAndWait();
+    }
 
     public void NextPlayer(ActionEvent event) throws IOException {
+        if (bearAttack.isBearAttackOngoing()) {
+            return;
+        }
         if (GameState.getInstance().getTurnInt() >= 20) {
             showWinner();
             return;
@@ -170,10 +191,6 @@ public class SceneController {
         stage.show();
 
     }
-
-    private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
-
-    private Kartu kartu1, kartu2, kartu3, kartu4;
 
     private void showWinner() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -542,6 +559,7 @@ public class SceneController {
     }
 
     public void initialize() {
+        bearAttack = new BearAttack();
         if (GameState.getInstance().giliran != null) {
             addKartuToDeck();
             addKartuToLadang();
@@ -553,12 +571,34 @@ public class SceneController {
             } else if (GameState.getInstance().giliran == 2) {
                 deckP.setText(GameState.getInstance().getDeckStatusPemain2());
             }
+            bearAttack.startBearAttack(this);
+
+            if (bearAttack.isBearAttackOngoing()) {
+                bearAlert();
+            }
+
+        }
+
+    }
+
+    public void refreshGame() {
+        try {
+            Refresh(new ActionEvent());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private Kartu kartuToko;
+    public void updateTimerUI(double timeLeft) {
+        // Update the timer display in the UI
+        bearAttackTimer.setText("Bear Attack: " + timeLeft + "s");
+    }
 
     public void showTokoDialog() {
+        if (bearAttack.isBearAttackOngoing()) {
+            // Show warning that visiting store is not allowed during bear attack
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Catalog");
         alert.setHeaderText(null);
@@ -1008,6 +1048,10 @@ public class SceneController {
     }
 
     public void showLadangLawan(ActionEvent event) throws IOException {
+        if (bearAttack.isBearAttackOngoing()) {
+            // Show warning that switching field is not allowed during bear attack
+            return;
+        }
         viewingOpponentField = true;
         if (GameState.getInstance().giliran == 1) {
             root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
@@ -1084,6 +1128,7 @@ public class SceneController {
         stage.setScene(scene);
         stage.show();
     }
+
     public void showCardStatus(Kartu kartu, int row, int col) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Card Status");
