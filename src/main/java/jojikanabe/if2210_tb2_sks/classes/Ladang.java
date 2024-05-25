@@ -31,6 +31,10 @@ public class Ladang {
         return new Pair<>(row, col);
     }
 
+    public static String getLadangPosisi(int row, int col) {
+        return (char) (row + (int) 'A') + "0" + (col + 1);
+    }
+
     public Kartu getKartu(int row, int col) {
         return this.ladang.get(row).get(col).keySet().stream().findFirst().orElse(null);
     }
