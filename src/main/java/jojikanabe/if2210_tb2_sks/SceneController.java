@@ -148,6 +148,32 @@ public class SceneController {
         showAlert();
     }
 
+    public void Refresh(ActionEvent event) throws IOException {
+        if (viewingOpponentField) {
+            // If we are viewing the opponent's field, don't change the background
+            viewingOpponentField = false;
+            if (GameState.getInstance().giliran == 1) {
+                root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            }
+        } else {
+            // Otherwise, proceed to the next turn and change the background
+            if (GameState.getInstance().giliran == 2) {
+                root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+                enemyroot = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+                enemyroot = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            }
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
     private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
 
     private Kartu kartu1, kartu2, kartu3, kartu4;
