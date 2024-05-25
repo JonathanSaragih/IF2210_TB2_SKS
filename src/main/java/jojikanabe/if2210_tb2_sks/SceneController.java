@@ -109,18 +109,6 @@ public class SceneController {
         stage.show();
     }
 
-    public void LoadGame(ActionEvent event) throws IOException {
-        GameState.getInstance().LoadGame();
-        if (GameState.getInstance().giliran == 1) {
-            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
-        } else {
-            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
-        }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void NextPlayer(ActionEvent event) throws IOException {
         if (viewingOpponentField) {
@@ -188,8 +176,8 @@ public class SceneController {
             pemain = GameState.getInstance().getPemain().get(1);
         }
 
-        System.out.println(pemain.getDeck().getSize());
-        System.out.println(pemain.getDeckAktif().size());
+//        System.out.println(pemain.getDeck().getSize());
+//        System.out.println(pemain.getDeckAktif().size());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
@@ -290,8 +278,8 @@ public class SceneController {
                 pemain.getDeck().addKartu(kartu3);
                 pemain.getDeck().addKartu(kartu4);
             }
-            System.out.println(pemain.getDeckAktif().size());
-            System.out.println(pemain.getDeck().getSize());
+//            System.out.println(pemain.getDeckAktif().size());
+//            System.out.println(pemain.getDeck().getSize());
         });
 
         VBox vbox = new VBox(10);
@@ -392,6 +380,9 @@ public class SceneController {
             button.setOnAction(e -> {
                 selectedKartu = kartu;
                 isFromDeck = true;
+                if (selectedKartu instanceof Produk) {
+                    showJualDialog(e, selectedKartu);
+                }
             });
         }
 
@@ -492,7 +483,7 @@ public class SceneController {
                     selectedKartu = kartu;
                     selectedCardRow = finalI / 5;
                     selectedCardCol = finalI % 5;
-                    showCardStatus(selectedKartu);
+                    showCardStatus(selectedKartu, selectedCardRow, selectedCardCol);
                 }
                 Platform.runLater(() -> {
                     addKartuToDeck();
@@ -516,6 +507,8 @@ public class SceneController {
             }
         }
     }
+
+    private Kartu kartuToko;
 
     public void showTokoDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -573,19 +566,34 @@ public class SceneController {
             if (entry.getValue() > 0) {
                 if (counter == 0 || counter == 1 || counter == 2) {
                     Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
+                    button.setUserData(entry.getKey());
                     grid.add(button, counter % 3, counter / 3);
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
+                    button.setOnAction(e -> {
+                        kartuToko = (Kartu) button.getUserData();
+                        showBeliDialog(e);
+                    });
                 } else if (counter == 3 || counter == 4 || counter == 5) {
                     Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
+                    button.setUserData(entry.getKey());
                     grid2.add(button, counter % 3, counter / 3);
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
+                    button.setOnAction(e -> {
+                        kartuToko = (Kartu) button.getUserData();
+                        showBeliDialog(e);
+                    });
                 } else {
                     Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
+                    button.setUserData(entry.getKey());
                     grid3.add(button, counter % 3, counter / 3);
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
+                    button.setOnAction(e -> {
+                        kartuToko = (Kartu) button.getUserData();
+                        showBeliDialog(e);
+                    });
                 }
 
                 counter++;
@@ -690,7 +698,7 @@ public class SceneController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+                GameState.getInstance().LoadGame(folder);
                 showResultDialog("PLUGIN LOADED SUCCESSFULLY", event);
             } catch (Exception ex) {
                 showResultDialog("FAILED TO LOAD PLUGIN", event);
@@ -780,7 +788,7 @@ public class SceneController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+                GameState.getInstance().LoadGame(folder);
                 showResultDialog("STATE LOADED SUCCESSFULLY", event);
             } catch (Exception ex) {
                 showResultDialog("FAILED TO LOAD STATE", event);
@@ -870,7 +878,7 @@ public class SceneController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+                GameState.getInstance().saveConfig(folder);
                 showResultDialog("STATE SAVED SUCCESSFULLY", event);
             } catch (Exception ex) {
                 showResultDialog("FAILED TO SAVE STATE", event);
@@ -1028,7 +1036,7 @@ public class SceneController {
         stage.setScene(scene);
         stage.show();
     }
-    public void showCardStatus(Kartu kartu) {
+    public void showCardStatus(Kartu kartu, int row, int col) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Card Status");
         alert.initStyle(StageStyle.UNDECORATED);
@@ -1037,21 +1045,224 @@ public class SceneController {
         if (kartu instanceof Hewan) {
             Hewan hewan = (Hewan) kartu;
             alert.setContentText("Nama Hewan: " + hewan.getNama() + "\nBerat Badan: " + hewan.getBeratBadan());
+            System.out.println(hewan.isSiapPanen());
         } else if (kartu instanceof Tanaman) {
             Tanaman tanaman = (Tanaman) kartu;
             alert.setContentText("Nama Tanaman: " + tanaman.getNama() + "\nUmur: " + tanaman.getUmur());
+            System.out.println(tanaman.isSiapPanen());
         } else {
             alert.setContentText("Kartu:\nNama: " + kartu.getNama());
         }
 
         ImageView imageView = new ImageView();
-        imageView.setImage(null);
+        imageView.setImage(null); // Set an image if needed
         alert.setGraphic(imageView);
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         dialogPane.getStyleClass().add("alert-dialog-pane");
 
+        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(okButtonType);
+
+        Node okButton = dialogPane.lookupButton(okButtonType);
+        okButton.setTranslateX(-15);
+
+        Button panenButton = new Button("Panen");
+        panenButton.setTranslateX(-10);
+        panenButton.setOnMouseClicked(event -> {
+            if (kartu instanceof Hewan) {
+                try {
+                    Hewan hewan = (Hewan) kartu;
+                    if (hewan.isSiapPanen()) {
+                        System.out.println("berhasil");
+                        ((Hewan) kartu).panen(row, col, GameState.getInstance().giliran);
+                    } else {
+                        System.out.println("belum panen ni cok");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Lah rusak");
+                }
+            } else if (kartu instanceof Tanaman) {
+                try {
+                    Tanaman tanaman = (Tanaman) kartu;
+                    if (tanaman.isSiapPanen()) {
+                        System.out.println("berhasil");
+                        ((Tanaman) kartu).panen(row, col, GameState.getInstance().giliran);
+                    } else {
+                        System.out.println("belum panen ni cok");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Lah rusak");
+                }
+            }
+        });
+
+        ButtonBar buttonBar = (ButtonBar) dialogPane.lookup(".button-bar");
+        buttonBar.getButtons().add(panenButton);
+
         alert.showAndWait();
+    }
+
+    public void showBeliDialog(ActionEvent event) {
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+        dialogStage.setTitle("BELI");
+
+        // Create a VBox for the central content
+        VBox centerVBox = new VBox();
+        centerVBox.setSpacing(10);
+        centerVBox.setPadding(new Insets(-15, 30, 20, 30));
+        centerVBox.setAlignment(Pos.CENTER);
+
+        // Pane for the dialog with styling
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #970220; -fx-border-color: yellow; -fx-border-width: 2;");
+
+        // GridPane for the number input
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefWidth(300);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setStyle("-fx-padding: 40 0 10 0;");
+        gridPane.setAlignment(Pos.CENTER);
+
+        Label numberLabel = new Label("NUMBER:");
+        numberLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14; -fx-pref-width: 70");
+
+        Spinner<Integer> numberSpinner = new Spinner<>();
+        numberSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0));
+        numberSpinner.setPrefWidth(100);
+
+        gridPane.add(numberLabel, 0, 0);
+        gridPane.add(numberSpinner, 1, 0);
+
+        Produk temp = (Produk) kartuToko;
+
+        // Button for loading the plugin
+        Button loadButton = new Button("BELI");
+        loadButton.setStyle("-fx-background-color: #0000ff; -fx-text-fill: white; -fx-pref-width: 50;-fx-pref-height: 10 ; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        loadButton.setOnAction(e -> {
+            int number = numberSpinner.getValue();
+            int banyak = 0;
+            if ((6 - GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).getDeckAktif().size()) >= number) {
+                for (int i = 0; i < number; i++) {
+                    GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).addKartu(GameState.getInstance().getToko().jualProduk(temp, 1), 6 - GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).getDeckAktif().size());
+                    banyak++;
+                }
+            } else {
+                for (int i = 0; i < (6 - GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).getDeckAktif().size()); i++) {
+                    GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).addKartu(GameState.getInstance().getToko().jualProduk(temp, 1), 6 - GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).getDeckAktif().size());
+                    banyak++;
+                }
+            }
+            GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).addGulden(-temp.getHarga() * banyak);
+            dialogStage.close();
+        });
+
+        numberLabel.setPadding(new Insets(0, 0, 0, 0));
+        numberSpinner.setPadding(new Insets(0, 0, 0, 0));
+        loadButton.setPadding(new Insets(0, 0, 0, 0));
+
+        // Add the gridPane and loadButton to the centerVBox
+        centerVBox.getChildren().addAll(gridPane, loadButton);
+
+        // Button for going back, placed at the top-left
+        Button backButton = new Button("Back");
+        backButton.setStyle("-fx-background-color: #0000ff; -fx-text-fill: white; -fx-pref-width: 50; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        backButton.setOnAction(e -> dialogStage.close());
+
+        // Create a BorderPane for the layout
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(backButton);
+        BorderPane.setAlignment(backButton, Pos.TOP_LEFT);
+        BorderPane.setMargin(backButton, new Insets(10, 0, 0, 10));
+
+        // Set the central VBox in the center of the BorderPane
+        borderPane.setCenter(centerVBox);
+
+        // Add the BorderPane to the main pane
+        pane.getChildren().add(borderPane);
+
+        // Create a scene with the pane and set it to the stage
+        Scene scene = new Scene(pane, 350, 150);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
+    }
+
+    public void showJualDialog(ActionEvent event, Kartu kartu) {
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+        dialogStage.setTitle("JUAL");
+
+        // Create a VBox for the central content
+        VBox centerVBox = new VBox();
+        centerVBox.setSpacing(10);
+        centerVBox.setPadding(new Insets(-15, 30, 20, 30));
+        centerVBox.setAlignment(Pos.CENTER);
+
+        // Pane for the dialog with styling
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #4b0d1a; -fx-border-color: #DBCF72; -fx-border-width: 2;");
+
+        Produk selectedKartu = (Produk) kartu;
+        Label nameLabel = new Label("Name: " + selectedKartu.getNama());
+        nameLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14;-fx-translate-x: 100;");
+        Label priceLabel = new Label("Price: " + selectedKartu.getHarga());
+        priceLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14; -fx-translate-x: 100;");
+
+        // Load the image
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(selectedKartu.getImage())));
+        ImageView imageView = new ImageView(image);
+        imageView.setStyle("-fx-translate-x: 100;");
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        // GridPane for the number input
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefWidth(300);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setStyle("-fx-padding: 40 0 10 0;");
+        gridPane.setAlignment(Pos.CENTER);
+
+        // Button for loading the plugin
+        Button loadButton = new Button("JUAL");
+        loadButton.setStyle("-fx-background-color: #3b0712; -fx-text-fill: #DBCF72; -fx-pref-width: 50;-fx-pref-height: 10 ; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10; -fx-translate-x: 100; -fx-pref-width: 70");
+
+        loadButton.setPadding(new Insets(0, 0, 0, 0));
+
+        loadButton.setOnAction(e -> {
+            int gulden = GameState.getInstance().getToko().beliProduk(selectedKartu, 1);
+            GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).addGulden(gulden);
+            showResultDialog("Produk berhasil dijual", event);
+            GameState.getInstance().getPemain().get(GameState.getInstance().giliran - 1).removeKartu(selectedKartu);
+            dialogStage.close();
+        });
+
+        // Add the gridPane and loadButton to the centerVBox
+        centerVBox.getChildren().addAll(nameLabel, priceLabel, imageView, loadButton);
+
+        // Button for going back, placed at the top-left
+        Button backButton = new Button("Back");
+        backButton.setStyle("-fx-background-color: #3b0712; -fx-text-fill: #DBCF72; -fx-pref-width: 50; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        backButton.setOnAction(e -> dialogStage.close());
+
+        // Create a BorderPane for the layout
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(backButton);
+        BorderPane.setAlignment(backButton, Pos.TOP_LEFT);
+        BorderPane.setMargin(backButton, new Insets(10, 0, 0, 10));
+
+        // Set the central VBox in the center of the BorderPane
+        borderPane.setCenter(centerVBox);
+
+        // Add the BorderPane to the main pane
+        pane.getChildren().add(borderPane);
+
+        // Create a scene with the pane and set it to the stage
+        Scene scene = new Scene(pane, 350, 200);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
     }
 }

@@ -12,6 +12,12 @@ public abstract class Hewan extends Kartu implements Panen {
         this.beratBadan = beratBadan;
     }
 
+    public Hewan(Hewan original) {
+        super(original);
+        this.beratBadanSiapPanen = original.beratBadanSiapPanen;
+        this.beratBadan = original.beratBadan;
+    }
+
     public Integer getBeratBadan() {
         return beratBadan;
     }
@@ -60,5 +66,10 @@ public abstract class Hewan extends Kartu implements Panen {
         } else {
             throw new Exception("Hewan belum siap panen");
         }
+    }
+
+    @Override
+    public boolean isSiapPanen() {
+        return beratBadan >= beratBadanSiapPanen;
     }
 }

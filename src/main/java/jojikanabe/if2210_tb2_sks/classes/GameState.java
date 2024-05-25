@@ -56,9 +56,9 @@ public class GameState implements ConfigController {
         this.giliran = 1;
     }
 
-    public void LoadGame() {
+    public void LoadGame(String folderName) {
         this.pemain = new ArrayList<>();
-        this.loadConfig("config");
+        this.loadConfig(folderName);
     }
 
     private void loadToko() {
@@ -142,7 +142,8 @@ public class GameState implements ConfigController {
     public Kartu getKartu(String nama) {
         for (Kartu kartu : dataKartu) {
             if (kartu.getNama().equals(nama)) {
-                return kartu;
+                Kartu kartuBaru = Kartu.getCopy(kartu);
+                return kartuBaru;
             }
         }
         return null;
@@ -324,9 +325,42 @@ public class GameState implements ConfigController {
             fileWriter.write(pemain.get(0).getDeckAktif().size() + "\n");
             for (int k = 0; k < pemain.get(0).getDeckAktif().size(); k++) {
                 Kartu kartu = pemain.get(0).getDeckAktif().get(k);
-                fileWriter.write(Helper.convertNumberToStringConfig(k) + " " + Helper.convertStringtoConfig(kartu.getNama()));
-                if (k < pemain.get(0).getDeckAktif().size() - 1) {
-                    fileWriter.write("\n");
+                fileWriter.write(Helper.convertNumberToStringConfig(k) + " " + Helper.convertStringtoConfig(kartu.getNama()) + "\n");
+            }
+            int jumlahLadang = 0;
+            for (i = 0; i < 4; i++) {
+                for (j = 0; j < 5; j++) {
+                    Kartu kartu = pemain.get(0).getLadang().getKartu(i, j);
+                    if (kartu != null) {
+                        jumlahLadang++;
+                    }
+                }
+            }
+            if (jumlahLadang == 0) {
+                fileWriter.write(jumlahLadang);
+            } else {
+                fileWriter.write(jumlahLadang + "\n");
+                for (i = 0; i < 4; i++) {
+                    for (j = 0; j < 5; j++) {
+                        Kartu kartu = pemain.get(0).getLadang().getKartu(i, j);
+                        if (kartu != null) {
+                            fileWriter.write(Ladang.getLadangPosisi(i, j) + " " + Helper.convertStringtoConfig(kartu.getNama()));
+                            if (kartu instanceof Tanaman) {
+                                fileWriter.write(" " + ((Tanaman) kartu).getUmur());
+                            } else {
+                                fileWriter.write(" " + ((Hewan) kartu).getBeratBadan());
+                            }
+                            List<Kartu> items = pemain.get(0).getLadang().getKartuEffects(i, j);
+                            fileWriter.write(" " + items.size());
+                            for (int k = 0; k < items.size(); k++) {
+                                fileWriter.write(" " + Helper.convertStringtoConfig(items.get(k).getNama()));
+                            }
+                            if (jumlahLadang > 1) {
+                                fileWriter.write("\n");
+                            }
+                            jumlahLadang--;
+                        }
+                    }
                 }
             }
             fileWriter.close();
@@ -338,9 +372,42 @@ public class GameState implements ConfigController {
             fileWriter.write(pemain.get(1).getDeckAktif().size() + "\n");
             for (int k = 0; k < pemain.get(1).getDeckAktif().size(); k++) {
                 Kartu kartu = pemain.get(1).getDeckAktif().get(k);
-                fileWriter.write(Helper.convertNumberToStringConfig(k) + " " + Helper.convertStringtoConfig(kartu.getNama()));
-                if (k < pemain.get(1).getDeckAktif().size() - 1) {
-                    fileWriter.write("\n");
+                fileWriter.write(Helper.convertNumberToStringConfig(k) + " " + Helper.convertStringtoConfig(kartu.getNama()) + "\n");
+            }
+            jumlahLadang = 0;
+            for (i = 0; i < 4; i++) {
+                for (j = 0; j < 5; j++) {
+                    Kartu kartu = pemain.get(1).getLadang().getKartu(i, j);
+                    if (kartu != null) {
+                        jumlahLadang++;
+                    }
+                }
+            }
+            if (jumlahLadang == 0) {
+                fileWriter.write(jumlahLadang);
+            } else {
+                fileWriter.write(jumlahLadang + "\n");
+                for (i = 0; i < 4; i++) {
+                    for (j = 0; j < 5; j++) {
+                        Kartu kartu = pemain.get(1).getLadang().getKartu(i, j);
+                        if (kartu != null) {
+                            fileWriter.write(Ladang.getLadangPosisi(i, j) + " " + Helper.convertStringtoConfig(kartu.getNama()));
+                            if (kartu instanceof Tanaman) {
+                                fileWriter.write(" " + ((Tanaman) kartu).getUmur());
+                            } else {
+                                fileWriter.write(" " + ((Hewan) kartu).getBeratBadan());
+                            }
+                            List<Kartu> items = pemain.get(1).getLadang().getKartuEffects(i, j);
+                            fileWriter.write(" " + items.size());
+                            for (int k = 0; k < items.size(); k++) {
+                                fileWriter.write(" " + Helper.convertStringtoConfig(items.get(k).getNama()));
+                            }
+                            if (jumlahLadang > 1) {
+                                fileWriter.write("\n");
+                            }
+                            jumlahLadang--;
+                        }
+                    }
                 }
             }
             fileWriter.close();

@@ -5,8 +5,12 @@ public class ItemProtect extends Item {
         super("Protect", image);
     }
 
+    public ItemProtect(ItemProtect original) {
+        super(original);
+    }
+
     @Override
     public void efek(int row, int col, int nomorPemain) throws Exception {
-        
+
     }
 }

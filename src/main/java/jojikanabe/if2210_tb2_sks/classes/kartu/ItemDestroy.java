@@ -7,6 +7,10 @@ public class ItemDestroy extends Item {
         super("Destroy", image);
     }
 
+    public ItemDestroy(ItemDestroy original) {
+        super(original);
+    }
+
     @Override
     public void efek(int row, int col, int nomorPemain) throws Exception {
         GameState gameState = GameState.getInstance();

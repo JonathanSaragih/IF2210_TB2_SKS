@@ -7,6 +7,10 @@ public class ItemAccelerate extends Item {
         super("Accelerate", image);
     }
 
+    public ItemAccelerate(ItemAccelerate original) {
+        super(original);
+    }
+
     @Override
     public void efek(int row, int col, int nomorPemain) throws Exception {
         GameState gameState = GameState.getInstance();
