@@ -455,10 +455,10 @@ public class SceneController {
     }
 
     public void showTokoDialog() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Catalog");
-        alert.setHeaderText(null);
-        alert.setContentText(null);
+        Dialog<Object> dialog = new Dialog<>();
+        dialog.setTitle("Catalog");
+
+        BorderPane borderPane = new BorderPane();
 
         Pane pane = new Pane();
         VBox vbox = new VBox();
@@ -506,23 +506,31 @@ public class SceneController {
 
         int counter = 0;
         for (Map.Entry<Produk, Integer> entry : daftarProduk.entrySet()) {
-
             if (entry.getValue() > 0) {
                 if (counter == 0 || counter == 1 || counter == 2) {
                     Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
                     grid.add(button, counter % 3, counter / 3);
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
+                    button.setOnAction(e -> {
+                        showBeliDialog(e);
+                    });
                 } else if (counter == 3 || counter == 4 || counter == 5) {
                     Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
                     grid2.add(button, counter % 3, counter / 3);
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
+                    button.setOnAction(e -> {
+                        showBeliDialog(e);
+                    });
                 } else {
                     Button button = createButton(entry.getKey().getNama(), entry.getKey().getHarga().toString(), entry.getValue().toString(), entry.getKey().getImage());
                     grid3.add(button, counter % 3, counter / 3);
                     GridPane.setHalignment(button, HPos.CENTER);
                     GridPane.setValignment(button, VPos.CENTER);
+                    button.setOnAction(e -> {
+                        showBeliDialog(e);
+                    });
                 }
 
                 counter++;
@@ -555,13 +563,17 @@ public class SceneController {
 
         pane.getChildren().add(vbox);
 
-        alert.getDialogPane().setGraphic(pane);
+        // Add the VBox to the center of the BorderPane
+        borderPane.setCenter(pane);
 
-        DialogPane dialogPane = alert.getDialogPane();
+        dialog.getDialogPane().setContent(borderPane);
+
+        DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setPrefSize(500, 500);
         dialogPane.setStyle("-fx-background-color: #D0D0D0;");
 
-        alert.showAndWait();
+        // This line is important to ensure the dialog is displayed
+        dialog.showAndWait();
     }
 
     public void showLoadPluginDialog(ActionEvent event) {
@@ -965,4 +977,75 @@ public class SceneController {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void showBeliDialog(ActionEvent event) {
+        Stage dialogStage = new Stage();
+        dialogStage.initStyle(StageStyle.UNDECORATED);
+        dialogStage.setTitle("BELI");
+
+        // Create a VBox for the central content
+        VBox centerVBox = new VBox();
+        centerVBox.setSpacing(10);
+        centerVBox.setPadding(new Insets(-15, 30, 20, 30));
+        centerVBox.setAlignment(Pos.CENTER);
+
+        // Pane for the dialog with styling
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: #970220; -fx-border-color: yellow; -fx-border-width: 2;");
+
+        // GridPane for the number input
+        GridPane gridPane = new GridPane();
+        gridPane.setPrefWidth(300);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setStyle("-fx-padding: 40 0 10 0;");
+        gridPane.setAlignment(Pos.CENTER);
+
+        Label numberLabel = new Label("NUMBER:");
+        numberLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14; -fx-pref-width: 70");
+
+        Spinner<Integer> numberSpinner = new Spinner<>();
+        numberSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0));
+        numberSpinner.setPrefWidth(100);
+
+        gridPane.add(numberLabel, 0, 0);
+        gridPane.add(numberSpinner, 1, 0);
+
+        // Button for loading the plugin
+        Button loadButton = new Button("BELI");
+        loadButton.setStyle("-fx-background-color: #0000ff; -fx-text-fill: white; -fx-pref-width: 50;-fx-pref-height: 10 ; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        loadButton.setOnAction(e -> {
+            int number = numberSpinner.getValue();
+        });
+
+        numberLabel.setPadding(new Insets(0, 0, 0, 0));
+        numberSpinner.setPadding(new Insets(0, 0, 0, 0));
+        loadButton.setPadding(new Insets(0, 0, 0, 0));
+
+        // Add the gridPane and loadButton to the centerVBox
+        centerVBox.getChildren().addAll(gridPane, loadButton);
+
+        // Button for going back, placed at the top-left
+        Button backButton = new Button("Back");
+        backButton.setStyle("-fx-background-color: #0000ff; -fx-text-fill: white; -fx-pref-width: 50; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        backButton.setOnAction(e -> dialogStage.close());
+
+        // Create a BorderPane for the layout
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(backButton);
+        BorderPane.setAlignment(backButton, Pos.TOP_LEFT);
+        BorderPane.setMargin(backButton, new Insets(10, 0, 0, 10));
+
+        // Set the central VBox in the center of the BorderPane
+        borderPane.setCenter(centerVBox);
+
+        // Add the BorderPane to the main pane
+        pane.getChildren().add(borderPane);
+
+        // Create a scene with the pane and set it to the stage
+        Scene scene = new Scene(pane, 350, 150);
+        dialogStage.setScene(scene);
+        dialogStage.showAndWait();
+    }
+
 }
