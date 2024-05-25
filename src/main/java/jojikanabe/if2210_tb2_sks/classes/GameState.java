@@ -5,8 +5,12 @@ import jojikanabe.if2210_tb2_sks.classes.kartu.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -163,7 +167,7 @@ public class GameState implements ConfigController {
                 } else {
                     String data[] = line.split(" ");
 
-                    String nama = Helper.convertString(data[0]);
+                    String nama = Helper.convertConfigtoString(data[0]);
                     Integer jumlah = Integer.parseInt(data[1]);
                     for (Kartu kartu : dataKartu) {
                         if (kartu.getNama().equals(nama)) {
@@ -195,15 +199,15 @@ public class GameState implements ConfigController {
                     jumlahDeckAktif = Integer.parseInt(line);
                 } else if (i < 3 + jumlahDeckAktif) {
                     String data[] = line.split(" ");
-                    int posisi = Helper.convertStringToNumber(data[0]);
-                    String nama = Helper.convertString(data[1]);
+                    int posisi = Helper.convertStringConfigToNumber(data[0]);
+                    String nama = Helper.convertConfigtoString(data[1]);
                     pemain.get(0).addKartu(getKartu(nama), posisi);
                 } else if (i == 3 + jumlahDeckAktif) {
                     jumlahLadang = Integer.parseInt(line);
                 } else {
                     String data[] = line.split(" ");
                     Pair<Integer, Integer> posisi = Ladang.getLadangIndex(data[0]);
-                    String nama = Helper.convertString(data[1]);
+                    String nama = Helper.convertConfigtoString(data[1]);
                     Kartu kartu = getKartu(nama);
                     if (kartu instanceof Tanaman) {
                         ((Tanaman) kartu).setUmur(Integer.parseInt(data[2]));
@@ -217,7 +221,7 @@ public class GameState implements ConfigController {
                         System.out.println(e.getMessage());
                     }
                     for (int j = 4; j < data.length; j++) {
-                        String namaItem = Helper.convertString(data[j]);
+                        String namaItem = Helper.convertConfigtoString(data[j]);
                         Item item = (Item) getKartu(namaItem);
                         try {
                             pemain.get(0).getLadang().setKartuItems(posisi.getKey(), posisi.getValue(), item);
@@ -249,15 +253,15 @@ public class GameState implements ConfigController {
                     jumlahDeckAktif = Integer.parseInt(line);
                 } else if (i < 3 + jumlahDeckAktif) {
                     String data[] = line.split(" ");
-                    int posisi = Helper.convertStringToNumber(data[0]);
-                    String nama = Helper.convertString(data[1]);
+                    int posisi = Helper.convertStringConfigToNumber(data[0]);
+                    String nama = Helper.convertConfigtoString(data[1]);
                     pemain.get(1).addKartu(getKartu(nama), posisi);
                 } else if (i == 3 + jumlahDeckAktif) {
                     jumlahLadang = Integer.parseInt(line);
                 } else {
                     String data[] = line.split(" ");
                     Pair<Integer, Integer> posisi = Ladang.getLadangIndex(data[0]);
-                    String nama = Helper.convertString(data[1]);
+                    String nama = Helper.convertConfigtoString(data[1]);
                     Kartu kartu = getKartu(nama);
                     if (kartu instanceof Tanaman) {
                         ((Tanaman) kartu).setUmur(Integer.parseInt(data[2]));
@@ -271,7 +275,7 @@ public class GameState implements ConfigController {
                         System.out.println(e.getMessage());
                     }
                     for (int j = 4; j < data.length; j++) {
-                        String namaItem = Helper.convertString(data[j]);
+                        String namaItem = Helper.convertConfigtoString(data[j]);
                         Item item = (Item) getKartu(namaItem);
                         try {
                             pemain.get(1).getLadang().setKartuItems(posisi.getKey(), posisi.getValue(), item);
@@ -289,5 +293,59 @@ public class GameState implements ConfigController {
 
     @Override
     public void saveConfig(String foldername) {
+        // Save game state
+        try {
+            Files.createDirectories(Paths.get("src/main/resources/" + foldername));
+
+            FileWriter fileWriter = new FileWriter("src/main/resources/" + foldername + "/gamestate.txt");
+            fileWriter.write(turn + "\n");
+            int i = 0;
+            for (Map.Entry<Produk, Integer> entry : toko.getDaftarProduk().entrySet()) {
+                if (entry.getValue() > 0)
+                    i++;
+            }
+            fileWriter.write(i + "\n");
+            int j = 0;
+            for (Map.Entry<Produk, Integer> entry : toko.getDaftarProduk().entrySet()) {
+                if (entry.getValue() > 0) {
+                    fileWriter.write(Helper.convertStringtoConfig(entry.getKey().getNama()) + " " + entry.getValue());
+                    if (j < i - 1) {
+                        fileWriter.write("\n");
+                        j++;
+                    }
+                }
+            }
+            fileWriter.close();
+
+            // Save pemain 1
+            fileWriter = new FileWriter("src/main/resources/" + foldername + "/player1.txt");
+            fileWriter.write(pemain.get(0).getGulden() + "\n");
+            fileWriter.write(pemain.get(0).getDeck().getSize() + "\n");
+            fileWriter.write(pemain.get(0).getDeckAktif().size() + "\n");
+            for (int k = 0; k < pemain.get(0).getDeckAktif().size(); k++) {
+                Kartu kartu = pemain.get(0).getDeckAktif().get(k);
+                fileWriter.write(Helper.convertNumberToStringConfig(k) + " " + Helper.convertStringtoConfig(kartu.getNama()));
+                if (k < pemain.get(0).getDeckAktif().size() - 1) {
+                    fileWriter.write("\n");
+                }
+            }
+            fileWriter.close();
+
+            // Save pemain 2
+            fileWriter = new FileWriter("src/main/resources/" + foldername + "/player2.txt");
+            fileWriter.write(pemain.get(1).getGulden() + "\n");
+            fileWriter.write(pemain.get(1).getDeck().getSize() + "\n");
+            fileWriter.write(pemain.get(1).getDeckAktif().size() + "\n");
+            for (int k = 0; k < pemain.get(1).getDeckAktif().size(); k++) {
+                Kartu kartu = pemain.get(1).getDeckAktif().get(k);
+                fileWriter.write(Helper.convertNumberToStringConfig(k) + " " + Helper.convertStringtoConfig(kartu.getNama()));
+                if (k < pemain.get(1).getDeckAktif().size() - 1) {
+                    fileWriter.write("\n");
+                }
+            }
+            fileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
