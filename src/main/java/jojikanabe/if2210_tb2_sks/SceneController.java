@@ -22,10 +22,7 @@ import jojikanabe.if2210_tb2_sks.classes.GameState;
 import jojikanabe.if2210_tb2_sks.classes.Ladang;
 import jojikanabe.if2210_tb2_sks.classes.Pemain;
 import jojikanabe.if2210_tb2_sks.classes.Toko;
-import jojikanabe.if2210_tb2_sks.classes.kartu.Hewan;
-import jojikanabe.if2210_tb2_sks.classes.kartu.Item;
-import jojikanabe.if2210_tb2_sks.classes.kartu.Kartu;
-import jojikanabe.if2210_tb2_sks.classes.kartu.Produk;
+import jojikanabe.if2210_tb2_sks.classes.kartu.*;
 
 import java.io.IOException;
 import java.util.List;
