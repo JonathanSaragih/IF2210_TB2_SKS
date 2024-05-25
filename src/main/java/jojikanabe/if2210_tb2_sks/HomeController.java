@@ -43,7 +43,7 @@ public class HomeController {
 
         VBox vbox = new VBox();
         vbox.setLayoutX(50);
-        vbox.setLayoutY(20);
+        vbox.setLayoutY(40);
 
         Pane pane = new Pane();
         pane.setStyle("-fx-background-color: #564457; -fx-border-color: #DBCF72; -fx-border-width: 2;");
@@ -55,9 +55,9 @@ public class HomeController {
         gridPane.setStyle("-fx-padding: 10 0 10 0;");
 
         Label formatLabel = new Label("FORMAT:");
-        formatLabel.setStyle("-fx-text-fill: #DBCF72; -fx-font-size: 14; -fx-pref-width: 70");
+        formatLabel.setId("formatLabel");
         Label folderLabel = new Label("FOLDER:");
-        folderLabel.setStyle("-fx-text-fill: #DBCF72; -fx-font-size: 14; -fx-pref-width: 70");
+        folderLabel.setId("folderLabel");
 
         ChoiceBox<String> formatChoiceBox = new ChoiceBox<>();
         formatChoiceBox.getItems().add("txt");
@@ -73,7 +73,7 @@ public class HomeController {
         gridPane.add(folderTextField, 1, 1);
 
         Button loadButton = new Button("LOAD");
-        loadButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 300; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        loadButton.setId("loadButton");
 
         loadButton.setOnAction(e -> {
             String format = formatChoiceBox.getValue();
@@ -95,12 +95,7 @@ public class HomeController {
 
         Scene dialogScene = new Scene(pane, 400, 200);
 
-        // Add an event filter to close the dialog when clicking outside of it
-        dialogScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
-            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
-                dialogStage.close();
-            }
-        });
+        dialogScene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
         dialogStage.setScene(dialogScene);
         dialogStage.showAndWait();
@@ -112,17 +107,19 @@ public class HomeController {
 
         VBox vbox = new VBox();
         vbox.setLayoutX(50);
-        vbox.setLayoutY(20);
+        vbox.setLayoutY(30);
         vbox.setSpacing(10);
 
         Pane pane = new Pane();
         pane.setStyle("-fx-background-color: #564457; -fx-border-color: #DBCF72; -fx-border-width: 2;");
 
         Label messageLabel = new Label(message);
-        messageLabel.setStyle("-fx-text-fill: #3b9f3b; -fx-font-size: 14;");
+        messageLabel.setTranslateX(50);
+        messageLabel.setId("messageLabel");
 
         Button okButton = new Button("OK");
-        okButton.setStyle("-fx-background-color: #1C2045; -fx-text-fill: #DBCF72; -fx-pref-width: 100; -fx-border-color: #DBCF72; -fx-border-width: 2; -fx-background-radius: 10;");
+        okButton.setId("okButton");
+        okButton.setTranslateX(100);
         okButton.setOnAction(e -> {
             resultDialogStage.close();
             try {
@@ -135,15 +132,9 @@ public class HomeController {
         vbox.getChildren().addAll(messageLabel, okButton);
         pane.getChildren().add(vbox);
 
-        Scene resultScene = new Scene(pane, 400, 200);
+        Scene resultScene = new Scene(pane, 400, 130);
 
-        // Add an event filter to close the dialog when clicking outside of it
-        resultScene.addEventFilter(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
-            if (!pane.contains(mouseEvent.getX(), mouseEvent.getY())) {
-                resultDialogStage.close();
-            }
-        });
-
+        resultScene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         resultDialogStage.setScene(resultScene);
         resultDialogStage.showAndWait();
     }

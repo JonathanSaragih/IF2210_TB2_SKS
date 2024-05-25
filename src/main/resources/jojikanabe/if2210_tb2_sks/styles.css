@@ -199,6 +199,7 @@
     -fx-border-radius: 5;
     -fx-border-width: 1.5;
     -fx-border-color: #DBCF72;
+    -fx-font-family: 'Metal Mania';
 }
 
 #regenerateButton:hover {
@@ -215,9 +216,62 @@
     -fx-border-radius: 5;
     -fx-border-width: 1.5;
     -fx-border-color: #DBCF72;
+    -fx-font-family: 'Metal Mania';
 }
 
 #confirmButton:hover {
+    -fx-background-color: #DBCF72;
+    -fx-text-fill: #1C2045;
+    -fx-cursor: hand;
+    -fx-border-color: #1C2045;
+}
+
+#formatLabel {
+    -fx-text-fill: #DBCF72;
+    -fx-font-size: 14;
+    -fx-pref-width: 70;
+    -fx-font-family: 'Metal Mania';
+}
+
+#folderLabel {
+    -fx-text-fill: #DBCF72;
+    -fx-font-size: 14;
+    -fx-pref-width: 70;
+    -fx-font-family: 'Metal Mania';
+}
+
+#loadButton {
+    -fx-background-color: #1C2045;
+    -fx-text-fill: #DBCF72;
+    -fx-pref-width: 300;
+    -fx-border-color: #DBCF72;
+    -fx-border-width: 2;
+    -fx-font-family: 'Metal Mania';
+}
+
+#loadButton:hover {
+    -fx-background-color: #DBCF72;
+    -fx-text-fill: #1C2045;
+    -fx-cursor: hand;
+    -fx-border-color: #1C2045;
+}
+
+#messageLabel {
+    -fx-text-fill: #3b9f3b;
+    -fx-font-size: 18;
+    -fx-font-family: 'Metal Mania';
+}
+
+#okButton {
+    -fx-background-color: #1C2045;
+    -fx-text-fill: #DBCF72;
+    -fx-border-width: 1.5;
+    -fx-border-color: #DBCF72;
+    -fx-pref-width: 100;
+    -fx-font-family: 'Metal Mania';
+}
+
+#okButton:hover {
     -fx-background-color: #DBCF72;
     -fx-text-fill: #1C2045;
     -fx-cursor: hand;
