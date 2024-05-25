@@ -5,6 +5,8 @@ import jojikanabe.if2210_tb2_sks.classes.GameState;
 public interface Panen {
     void panen(int row, int col, int nomorPemain) throws Exception;
 
+    boolean isSiapPanen();
+
     default void updateLadang(int nomorPemain, int row, int col, Kartu kartu) throws Exception {
         GameState gameState = GameState.getInstance();
         try {

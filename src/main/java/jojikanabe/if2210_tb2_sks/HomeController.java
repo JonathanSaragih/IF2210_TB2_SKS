@@ -184,8 +184,8 @@ public class HomeController {
             pemain = GameState.getInstance().getPemain().get(1);
         }
 
-        System.out.println(pemain.getDeck().getSize());
-        System.out.println(pemain.getDeckAktif().size());
+//        System.out.println(pemain.getDeck().getSize());
+//        System.out.println(pemain.getDeckAktif().size());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
@@ -286,8 +286,8 @@ public class HomeController {
                 pemain.getDeck().addKartu(kartu3);
                 pemain.getDeck().addKartu(kartu4);
             }
-            System.out.println(pemain.getDeck().getSize());
-            System.out.println(pemain.getDeckAktif().size());
+//            System.out.println(pemain.getDeck().getSize());
+//            System.out.println(pemain.getDeckAktif().size());
         });
 
         VBox vbox = new VBox(10);

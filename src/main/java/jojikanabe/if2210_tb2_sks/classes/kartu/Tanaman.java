@@ -47,6 +47,11 @@ public class Tanaman extends Kartu implements Panen {
         }
     }
 
+    @Override
+    public boolean isSiapPanen() {
+        return umur >= umurSiapPanen;
+    }
+
     private String getProdukNama() {
         switch (nama) {
             case "Biji Labu":

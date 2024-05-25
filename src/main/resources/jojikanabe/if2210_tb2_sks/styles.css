@@ -283,13 +283,14 @@
 
 .alert-dialog-pane .content {
     -fx-pref-width: 200;
-    -fx-pref-height: 100;
+    -fx-pref-height: 150;
     -fx-text-fill: #dbcf72;
     -fx-font-family: 'Metal Mania';
     -fx-font-size: 18;
 }
 
 .alert-dialog-pane .button-bar .button {
+    -fx-layout-x: -10;
     -fx-background-color: #1C2045;
     -fx-text-fill: #DBCF72;
     -fx-border-width: 1.5;
