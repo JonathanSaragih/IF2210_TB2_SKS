@@ -21,10 +21,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import jojikanabe.if2210_tb2_sks.classes.GameState;
-import jojikanabe.if2210_tb2_sks.classes.Ladang;
-import jojikanabe.if2210_tb2_sks.classes.Pemain;
-import jojikanabe.if2210_tb2_sks.classes.Toko;
+import jojikanabe.if2210_tb2_sks.classes.*;
 import jojikanabe.if2210_tb2_sks.classes.kartu.*;
 
 import java.io.IOException;
@@ -99,6 +96,7 @@ public class SceneController {
     private int selectedCardCol = -1;
     @FXML
     private Label turn, player1, player2;
+    private BearAttack bearAttack;
 
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
@@ -111,6 +109,10 @@ public class SceneController {
 
 
     public void NextPlayer(ActionEvent event) throws IOException {
+        if (bearAttack.isBearAttackOngoing()) {
+            // Show warning that Next turn is not allowed during bear attack
+            return;
+        }
         if (viewingOpponentField) {
             // If we are viewing the opponent's field, don't change the background
             viewingOpponentField = false;
@@ -491,6 +493,7 @@ public class SceneController {
     }
 
     public void initialize() {
+        bearAttack = new BearAttack();
         if (GameState.getInstance().giliran != null) {
             addKartuToDeck();
             addKartuToLadang();
@@ -502,10 +505,32 @@ public class SceneController {
             } else if (GameState.getInstance().giliran == 2) {
                 deckP.setText(GameState.getInstance().getDeckStatusPemain2());
             }
+            bearAttack.startBearAttack(this);
+        }
+
+    }
+
+    public void refreshGame() {
+        try {
+            Refresh(new ActionEvent());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    @FXML
+    private Label bearAttackTimer;
+
+    public void updateTimerUI(double timeLeft) {
+        // Update the timer display in the UI
+        bearAttackTimer.setText("Bear Attack: " + timeLeft + "s");
+    }
+
     public void showTokoDialog() {
+        if (bearAttack.isBearAttackOngoing()) {
+            // Show warning that visiting store is not allowed during bear attack
+            return;
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Catalog");
         alert.setHeaderText(null);
@@ -949,6 +974,10 @@ public class SceneController {
     }
 
     public void showLadangLawan(ActionEvent event) throws IOException {
+        if (bearAttack.isBearAttackOngoing()) {
+            // Show warning that switching field is not allowed during bear attack
+            return;
+        }
         viewingOpponentField = true;
         if (GameState.getInstance().giliran == 1) {
             root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
