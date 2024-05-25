@@ -99,7 +99,7 @@ public class GameState implements ConfigController {
         dataKartu.add(new Produk("Stroberi", "/assets/kartu/Produk/strawberry.png", 350, 5));
 
         // Item
-        dataKartu.add(new ItemAccelerate("/assets/kartu/item_Accelerate.png"));
+        dataKartu.add(new ItemAccelerate("/assets/kartu/Item/item_Accelerate.png"));
         dataKartu.add(new ItemDelay("/assets/kartu/Item/delay.png"));
         dataKartu.add(new ItemInstantHarvest("/assets/kartu/Item/instant_harvest.png"));
         dataKartu.add(new ItemDestroy("/assets/kartu/Item/destroy.png"));
