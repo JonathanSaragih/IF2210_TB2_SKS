@@ -30,6 +30,7 @@
                 </HBox>
             </Pane>
             <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#NextPlayer" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Next" />
+            <Button layoutX="415.0" layoutY="14.0" mnemonicParsing="false" onAction="#Refresh" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Refresh" />
             <Pane layoutX="500.0" prefHeight="112" prefWidth="112" styleClass="turn1" stylesheets="styles.css">
                 <Label fx:id="turn" alignment="CENTER" layoutX="35.0" layoutY="20.0" styleClass="text-turn" stylesheets="styles.css" text="Turn 1" />
             </Pane>

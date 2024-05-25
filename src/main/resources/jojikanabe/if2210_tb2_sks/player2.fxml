@@ -29,6 +29,7 @@
                 </HBox>
             </Pane>
             <Button layoutY="14.0" layoutX="300.0" mnemonicParsing="false" onAction="#NextPlayer" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Next"/>
+            <Button layoutY="14.0" layoutX="415.0" mnemonicParsing="false" onAction="#Refresh" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Refresh"/>
             <Pane layoutX="500.0" prefHeight="112" prefWidth="112" stylesheets="styles.css" styleClass="turn2">
                 <Label fx:id="turn" layoutY="20.0" layoutX="35.0" text="Turn 1" alignment="CENTER" styleClass="text-turn" stylesheets="styles.css"/>
             </Pane>
