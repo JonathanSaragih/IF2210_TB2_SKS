@@ -95,7 +95,7 @@ public class GameState implements ConfigController {
         dataKartu.add(new Produk("Telur", "/assets/kartu/Produk/telur.png", 50, 2));
         dataKartu.add(new Produk("Daging Beruang", "/assets/kartu/Produk/dagingberuang.png", 500, 12));
         dataKartu.add(new Produk("Jagung", "/assets/kartu/Produk/jagung.png", 150, 3));
-        dataKartu.add(new Produk("Labu", "/assets/kartu/Produk/pumkin.png", 500, 10));
+        dataKartu.add(new Produk("Labu", "/assets/kartu/Produk/pumpkin.png", 500, 10));
         dataKartu.add(new Produk("Stroberi", "/assets/kartu/Produk/strawberry.png", 350, 5));
 
         // Item
