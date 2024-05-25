@@ -95,11 +95,11 @@ public class GameState implements ConfigController {
         dataKartu.add(new Produk("Telur", "/assets/kartu/Produk/telur.png", 50, 2));
         dataKartu.add(new Produk("Daging Beruang", "/assets/kartu/Produk/dagingberuang.png", 500, 12));
         dataKartu.add(new Produk("Jagung", "/assets/kartu/Produk/jagung.png", 150, 3));
-        dataKartu.add(new Produk("Labu", "/assets/kartu/Produk/pumkin.png", 500, 10));
+        dataKartu.add(new Produk("Labu", "/assets/kartu/Produk/pumpkin.png", 500, 10));
         dataKartu.add(new Produk("Stroberi", "/assets/kartu/Produk/strawberry.png", 350, 5));
 
         // Item
-        dataKartu.add(new ItemAccelerate("/assets/kartu/item_Accelerate.png"));
+        dataKartu.add(new ItemAccelerate("/assets/kartu/Item/item_Accelerate.png"));
         dataKartu.add(new ItemDelay("/assets/kartu/Item/delay.png"));
         dataKartu.add(new ItemInstantHarvest("/assets/kartu/Item/instant_harvest.png"));
         dataKartu.add(new ItemDestroy("/assets/kartu/Item/destroy.png"));
@@ -125,6 +125,14 @@ public class GameState implements ConfigController {
 
     public String getGuldenPemain2() {
         return "Player 2: " + pemain.get(1).getGulden();
+    }
+
+    public String getDeckStatusPemain1() {
+        return pemain.get(0).getDeck().getSize() + "/40";
+    }
+
+    public String getDeckStatusPemain2() {
+        return pemain.get(1).getDeck().getSize() + "/40";
     }
 
     public Kartu getKartu(String nama) {
