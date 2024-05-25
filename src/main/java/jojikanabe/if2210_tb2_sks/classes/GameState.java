@@ -123,6 +123,18 @@ public class GameState implements ConfigController {
         return "Turn " + turn;
     }
 
+    public Integer getTurnInt() {return turn;}
+
+    public String getWinner() {
+    if (pemain.get(0).getGulden() > pemain.get(1).getGulden()) {
+        return "Player 1 wins";
+    } else if (pemain.get(0).getGulden() < pemain.get(1).getGulden()) {
+        return "Player 2 wins";
+    } else {
+        return "It's a draw";
+    }
+}
+
     public String getGuldenPemain1() {
         return "Player 1: " + pemain.get(0).getGulden();
     }

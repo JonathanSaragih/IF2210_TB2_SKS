@@ -24,12 +24,14 @@ public class Toko {
         return daftarProduk;
     }
 
-    Produk jualProduk(Produk produk, Integer jumlah) {
+    public Produk jualProduk(Produk produk, Integer jumlah) {
         if (daftarProduk.containsKey(produk)) {
             Integer stok = daftarProduk.get(produk);
             if (stok >= jumlah) {
                 daftarProduk.put(produk, stok - jumlah);
                 return produk;
+            } else {
+                System.out.println("Stok tidak cukup");
             }
         }
         return null;
@@ -49,11 +51,17 @@ public class Toko {
      * @param jumlah
      * @return gulden yang diterima pemain
      */
-    Integer beliProduk(Produk produk, Integer jumlah) {
+    public Integer beliProduk(Produk produk, Integer jumlah) {
+        Integer temp = 0;
         if (daftarProduk.containsKey(produk)) {
             Integer harga = produk.getHarga();
-            return harga * jumlah;
+            Integer stok = daftarProduk.get(produk);
+            addStok(produk, jumlah);
+            temp = harga * jumlah;
+        } else {
+            daftarProduk.put(produk, jumlah);
+            temp = produk.getHarga() * jumlah;
         }
-        return null;
+        return temp;
     }
 }
