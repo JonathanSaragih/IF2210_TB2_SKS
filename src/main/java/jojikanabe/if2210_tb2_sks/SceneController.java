@@ -188,8 +188,8 @@ public class SceneController {
             pemain = GameState.getInstance().getPemain().get(1);
         }
 
-        System.out.println(pemain.getDeck().getSize());
-        System.out.println(pemain.getDeckAktif().size());
+//        System.out.println(pemain.getDeck().getSize());
+//        System.out.println(pemain.getDeckAktif().size());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
@@ -290,8 +290,8 @@ public class SceneController {
                 pemain.getDeck().addKartu(kartu3);
                 pemain.getDeck().addKartu(kartu4);
             }
-            System.out.println(pemain.getDeckAktif().size());
-            System.out.println(pemain.getDeck().getSize());
+//            System.out.println(pemain.getDeckAktif().size());
+//            System.out.println(pemain.getDeck().getSize());
         });
 
         VBox vbox = new VBox(10);
@@ -492,7 +492,7 @@ public class SceneController {
                     selectedKartu = kartu;
                     selectedCardRow = finalI / 5;
                     selectedCardCol = finalI % 5;
-                    showCardStatus(selectedKartu);
+                    showCardStatus(selectedKartu, selectedCardRow, selectedCardCol);
                 }
                 Platform.runLater(() -> {
                     addKartuToDeck();
@@ -1028,7 +1028,7 @@ public class SceneController {
         stage.setScene(scene);
         stage.show();
     }
-    public void showCardStatus(Kartu kartu) {
+    public void showCardStatus(Kartu kartu, int row, int col) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Card Status");
         alert.initStyle(StageStyle.UNDECORATED);
@@ -1037,20 +1037,61 @@ public class SceneController {
         if (kartu instanceof Hewan) {
             Hewan hewan = (Hewan) kartu;
             alert.setContentText("Nama Hewan: " + hewan.getNama() + "\nBerat Badan: " + hewan.getBeratBadan());
+            System.out.println(hewan.isSiapPanen());
         } else if (kartu instanceof Tanaman) {
             Tanaman tanaman = (Tanaman) kartu;
             alert.setContentText("Nama Tanaman: " + tanaman.getNama() + "\nUmur: " + tanaman.getUmur());
+            System.out.println(tanaman.isSiapPanen());
         } else {
             alert.setContentText("Kartu:\nNama: " + kartu.getNama());
         }
 
         ImageView imageView = new ImageView();
-        imageView.setImage(null);
+        imageView.setImage(null); // Set an image if needed
         alert.setGraphic(imageView);
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         dialogPane.getStyleClass().add("alert-dialog-pane");
+
+        ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(okButtonType);
+
+        Node okButton = dialogPane.lookupButton(okButtonType);
+        okButton.setTranslateX(-15);
+
+        Button panenButton = new Button("Panen");
+        panenButton.setTranslateX(-10);
+        panenButton.setOnMouseClicked(event -> {
+            if (kartu instanceof Hewan) {
+                try {
+                    Hewan hewan = (Hewan) kartu;
+                    if (hewan.isSiapPanen()) {
+                        System.out.println("berhasil");
+                        ((Hewan) kartu).panen(row, col, GameState.getInstance().giliran);
+                    } else {
+                        System.out.println("belum panen ni cok");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Lah rusak");
+                }
+            } else if (kartu instanceof Tanaman) {
+                try {
+                    Tanaman tanaman = (Tanaman) kartu;
+                    if (tanaman.isSiapPanen()) {
+                        System.out.println("berhasil");
+                        ((Tanaman) kartu).panen(row, col, GameState.getInstance().giliran);
+                    } else {
+                        System.out.println("belum panen ni cok");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Lah rusak");
+                }
+            }
+        });
+
+        ButtonBar buttonBar = (ButtonBar) dialogPane.lookup(".button-bar");
+        buttonBar.getButtons().add(panenButton);
 
         alert.showAndWait();
     }

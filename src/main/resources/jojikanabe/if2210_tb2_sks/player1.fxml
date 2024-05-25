@@ -14,7 +14,7 @@
                     <Label fx:id="player1" styleClass="player1label" stylesheets="styles.css" text="Player 1:" />
                     <ImageView fitHeight="25" fitWidth="20">
                         <image>
-                            <Image url="@../../assets/coin.png" /> <!-- Replace with your image file path -->
+                            <Image url="@../../assets/coin.png" />
                         </image>
                     </ImageView>
                 </HBox>
@@ -24,13 +24,13 @@
                     <Label fx:id="player2" styleClass="player2label" stylesheets="styles.css" text="Player 2:" />
                     <ImageView fitHeight="25" fitWidth="20">
                         <image>
-                            <Image url="@../../assets/coin.png" /> <!-- Replace with your image file path -->
+                            <Image url="@../../assets/coin.png" />
                         </image>
                     </ImageView>
                 </HBox>
             </Pane>
             <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#NextPlayer" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Next" />
-            <Button layoutX="415.0" layoutY="14.0" mnemonicParsing="false" onAction="#Refresh" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Refresh" />
+            <Button layoutX="415.0" layoutY="14.0" mnemonicParsing="false" onAction="#Refresh" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Refresh" />
             <Pane layoutX="500.0" prefHeight="112" prefWidth="112" styleClass="turn1" stylesheets="styles.css">
                 <Label fx:id="turn" alignment="CENTER" layoutX="35.0" layoutY="20.0" styleClass="text-turn" stylesheets="styles.css" text="Turn 1" />
             </Pane>

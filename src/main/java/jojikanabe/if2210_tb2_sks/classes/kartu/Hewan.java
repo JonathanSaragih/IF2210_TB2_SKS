@@ -61,4 +61,9 @@ public abstract class Hewan extends Kartu implements Panen {
             throw new Exception("Hewan belum siap panen");
         }
     }
+
+    @Override
+    public boolean isSiapPanen() {
+        return beratBadan >= beratBadanSiapPanen;
+    }
 }
