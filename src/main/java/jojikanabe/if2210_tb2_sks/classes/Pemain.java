@@ -74,4 +74,7 @@ public class Pemain {
         return deckAktif;
     }
 
+    public void addGulden(Integer gulden) {
+        this.gulden += gulden;
+    }
 }
