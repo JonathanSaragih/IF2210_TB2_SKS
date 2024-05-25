@@ -12,6 +12,12 @@ public abstract class Hewan extends Kartu implements Panen {
         this.beratBadan = beratBadan;
     }
 
+    public Hewan(Hewan original) {
+        super(original);
+        this.beratBadanSiapPanen = original.beratBadanSiapPanen;
+        this.beratBadan = original.beratBadan;
+    }
+
     public Integer getBeratBadan() {
         return beratBadan;
     }

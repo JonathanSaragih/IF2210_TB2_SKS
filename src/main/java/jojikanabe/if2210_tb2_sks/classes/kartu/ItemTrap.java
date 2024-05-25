@@ -5,9 +5,13 @@ public class ItemTrap extends Item {
         super("Trap", image);
     }
 
+    public ItemTrap(ItemTrap original) {
+        super(original);
+    }
+
 
     @Override
     public void efek(int row, int col, int nomorPemain) throws Exception {
-        
+
     }
 }

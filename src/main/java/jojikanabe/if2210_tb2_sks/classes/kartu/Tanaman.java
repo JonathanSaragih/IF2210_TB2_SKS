@@ -12,6 +12,12 @@ public class Tanaman extends Kartu implements Panen {
         this.umur = umur;
     }
 
+    public Tanaman(Tanaman original) {
+        super(original);
+        this.umurSiapPanen = original.umurSiapPanen;
+        this.umur = original.umur;
+    }
+
     public Integer getUmur() {
         return umur;
     }

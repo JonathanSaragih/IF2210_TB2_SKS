@@ -10,6 +10,12 @@ public class Produk extends Kartu {
         this.kalori = kalori;
     }
 
+    public Produk(Produk original) {
+        super(original);
+        this.harga = original.harga;
+        this.kalori = original.kalori;
+    }
+
     public Integer getHarga() {
         return harga;
     }

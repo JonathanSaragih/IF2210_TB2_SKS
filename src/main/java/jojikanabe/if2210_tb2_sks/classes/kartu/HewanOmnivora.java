@@ -5,6 +5,10 @@ public class HewanOmnivora extends Hewan {
         super(nama, image, beratBadanSiapPanen, beratBadan);
     }
 
+    public HewanOmnivora(HewanOmnivora original) {
+        super(original);
+    }
+
     @Override
     public void makan(Kartu kartu) throws Exception {
         if (kartu instanceof Produk) {

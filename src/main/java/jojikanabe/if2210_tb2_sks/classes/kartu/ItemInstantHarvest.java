@@ -7,6 +7,10 @@ public class ItemInstantHarvest extends Item {
         super("Instant Harvest", image);
     }
 
+    public ItemInstantHarvest(ItemInstantHarvest original) {
+        super(original);
+    }
+
     @Override
     public void efek(int row, int col, int nomorPemain) throws Exception {
         GameState gameState = GameState.getInstance();
