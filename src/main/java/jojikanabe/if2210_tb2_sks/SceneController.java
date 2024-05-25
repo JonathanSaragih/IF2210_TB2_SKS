@@ -15,6 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SceneController {
     private Stage stage;
@@ -38,6 +40,8 @@ public class SceneController {
     private Parent enemyroot;
     private boolean viewingOpponentField = false;
     private Kartu selectedKartu = null;
+    @FXML
+    private Label deckP;
     @FXML
     private Button deck0;
     @FXML
@@ -146,6 +150,32 @@ public class SceneController {
         showAlert();
     }
 
+    public void Refresh(ActionEvent event) throws IOException {
+        if (viewingOpponentField) {
+            // If we are viewing the opponent's field, don't change the background
+            viewingOpponentField = false;
+            if (GameState.getInstance().giliran == 1) {
+                root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            }
+        } else {
+            // Otherwise, proceed to the next turn and change the background
+            if (GameState.getInstance().giliran == 2) {
+                root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+                enemyroot = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+                enemyroot = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+            }
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
     private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
 
     private Kartu kartu1, kartu2, kartu3, kartu4;
@@ -157,6 +187,9 @@ public class SceneController {
         } else {
             pemain = GameState.getInstance().getPemain().get(1);
         }
+
+        System.out.println(pemain.getDeck().getSize());
+        System.out.println(pemain.getDeckAktif().size());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
@@ -231,10 +264,34 @@ public class SceneController {
         confirmButton.setOnAction(e -> {
             alert.setResult(ButtonType.OK); // Set the result to OK (or any other type if needed)
             alert.hide(); // Close the alert dialog
-            pemain.getDeckAktif().add(kartu1);
-            pemain.getDeckAktif().add(kartu2);
-            pemain.getDeckAktif().add(kartu3);
-            pemain.getDeckAktif().add(kartu4);
+            if (6 - pemain.getDeckAktif().size() > 3) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeckAktif().add(kartu3);
+                pemain.getDeckAktif().add(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 3) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeckAktif().add(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 2) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 1) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeck().addKartu(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else {
+                pemain.getDeck().addKartu(kartu1);
+                pemain.getDeck().addKartu(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            }
+            System.out.println(pemain.getDeckAktif().size());
+            System.out.println(pemain.getDeck().getSize());
         });
 
         VBox vbox = new VBox(10);
@@ -435,6 +492,7 @@ public class SceneController {
                     selectedKartu = kartu;
                     selectedCardRow = finalI / 5;
                     selectedCardCol = finalI % 5;
+                    showCardStatus(selectedKartu);
                 }
                 Platform.runLater(() -> {
                     addKartuToDeck();
@@ -451,6 +509,11 @@ public class SceneController {
             turn.setText(GameState.getInstance().getTurn());
             player1.setText(GameState.getInstance().getGuldenPemain1());
             player2.setText(GameState.getInstance().getGuldenPemain2());
+            if (GameState.getInstance().giliran == 1) {
+                deckP.setText(GameState.getInstance().getDeckStatusPemain1());
+            } else if (GameState.getInstance().giliran == 2) {
+                deckP.setText(GameState.getInstance().getDeckStatusPemain2());
+            }
         }
     }
 
@@ -1048,4 +1111,30 @@ public class SceneController {
         dialogStage.showAndWait();
     }
 
+    public void showCardStatus(Kartu kartu) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Card Status");
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setHeaderText(null);
+
+        if (kartu instanceof Hewan) {
+            Hewan hewan = (Hewan) kartu;
+            alert.setContentText("Nama Hewan: " + hewan.getNama() + "\nBerat Badan: " + hewan.getBeratBadan());
+        } else if (kartu instanceof Tanaman) {
+            Tanaman tanaman = (Tanaman) kartu;
+            alert.setContentText("Nama Tanaman: " + tanaman.getNama() + "\nUmur: " + tanaman.getUmur());
+        } else {
+            alert.setContentText("Kartu:\nNama: " + kartu.getNama());
+        }
+
+        ImageView imageView = new ImageView();
+        imageView.setImage(null);
+        alert.setGraphic(imageView);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("alert-dialog-pane");
+
+        alert.showAndWait();
+    }
 }

@@ -38,4 +38,8 @@ public class Deck {
         kartu.remove(index);
         return temp;
     }
+
+    public int getSize() {
+        return kartu.size();
+    }
 }

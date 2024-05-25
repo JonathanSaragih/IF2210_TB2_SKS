@@ -12,7 +12,7 @@ public abstract class Hewan extends Kartu implements Panen {
         this.beratBadan = beratBadan;
     }
 
-    Integer getBeratBadan() {
+    public Integer getBeratBadan() {
         return beratBadan;
     }
 
