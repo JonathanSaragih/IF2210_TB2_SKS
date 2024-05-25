@@ -280,3 +280,26 @@
     -fx-cursor: hand;
     -fx-border-color: #1C2045;
 }
+
+.alert-dialog-pane .content {
+    -fx-pref-width: 200;
+    -fx-pref-height: 100;
+    -fx-text-fill: #dbcf72;
+    -fx-font-family: 'Metal Mania';
+    -fx-font-size: 18;
+}
+
+.alert-dialog-pane .button-bar .button {
+    -fx-background-color: #1C2045;
+    -fx-text-fill: #DBCF72;
+    -fx-border-width: 1.5;
+    -fx-border-color: #DBCF72;
+    -fx-font-family: 'Metal Mania';
+}
+
+.alert-dialog-pane .button-bar .button:hover {
+    -fx-background-color: #DBCF72;
+    -fx-text-fill: #1C2045;
+    -fx-cursor: hand;
+    -fx-border-color: #1C2045;
+}
