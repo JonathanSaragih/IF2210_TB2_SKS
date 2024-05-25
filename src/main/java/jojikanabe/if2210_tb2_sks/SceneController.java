@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jojikanabe.if2210_tb2_sks.classes.GameState;
@@ -111,6 +112,10 @@ public class SceneController {
 
 
     public void NextPlayer(ActionEvent event) throws IOException {
+        if (GameState.getInstance().getTurnInt() >= 20) {
+            showWinner();
+            return;
+        }
         if (viewingOpponentField) {
             // If we are viewing the opponent's field, don't change the background
             viewingOpponentField = false;
@@ -130,6 +135,8 @@ public class SceneController {
                 enemyroot = FXMLLoader.load(getClass().getResource("Player2.fxml"));
             }
         }
+
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -167,6 +174,47 @@ public class SceneController {
     private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
 
     private Kartu kartu1, kartu2, kartu3, kartu4;
+
+    private void showWinner() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setHeaderText(null);
+        alert.setTitle("Winner");
+
+        String player1Gulden = String.valueOf(GameState.getInstance().getPemain().get(0).getGulden());
+        String player2Gulden = String.valueOf(GameState.getInstance().getPemain().get(1).getGulden());
+
+        String contentText = "Player 1 Gulden: " + player1Gulden + "\n" +
+                "Player 2 Gulden: " + player2Gulden + "\n" +
+                GameState.getInstance().getWinner();
+
+        ImageView imageView = new ImageView();
+        imageView.setImage(null);
+        alert.setGraphic(imageView);
+
+        Button exitButton = new Button("Exit");
+
+        exitButton.setOnAction(event -> {
+
+        });
+
+        HBox buttonBox = new HBox(exitButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setTranslateX(-10);
+
+        alert.getButtonTypes().clear();
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("alert-dialog");
+        dialogPane.setPrefSize(300, 200);
+
+        Label contentLabel = new Label(contentText);
+        contentLabel.getStyleClass().add("content");
+        dialogPane.setContent(new VBox(10, contentLabel, buttonBox));
+
+        alert.showAndWait();
+    }
 
     private void showAlert() {
         Pemain pemain;
