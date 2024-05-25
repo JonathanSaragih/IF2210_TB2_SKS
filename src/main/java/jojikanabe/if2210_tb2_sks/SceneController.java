@@ -98,6 +98,11 @@ public class SceneController {
     @FXML
     private Label turn, player1, player2;
     private BearAttack bearAttack;
+    private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
+    private Kartu kartu1, kartu2, kartu3, kartu4;
+    @FXML
+    private Label bearAttackTimer;
+    private Kartu kartuToko;
 
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
@@ -108,10 +113,25 @@ public class SceneController {
         stage.show();
     }
 
+    public void bearAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Bear Alert");
+        alert.setHeaderText(null);
+        alert.setContentText("Awasssss diserang beruang!");
+        
+
+        // Customize the dialog pane
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("alert-dialog");
+
+        // Show the alert dialog
+        alert.showAndWait();
+    }
 
     public void NextPlayer(ActionEvent event) throws IOException {
         if (bearAttack.isBearAttackOngoing()) {
-          return;
+            return;
         }
         if (GameState.getInstance().getTurnInt() >= 20) {
             showWinner();
@@ -171,10 +191,6 @@ public class SceneController {
         stage.show();
 
     }
-
-    private Button buttonShuffle1, buttonShuffle2, buttonShuffle3, buttonShuffle4;
-
-    private Kartu kartu1, kartu2, kartu3, kartu4;
 
     private void showWinner() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -556,6 +572,11 @@ public class SceneController {
                 deckP.setText(GameState.getInstance().getDeckStatusPemain2());
             }
             bearAttack.startBearAttack(this);
+
+            if (bearAttack.isBearAttackOngoing()) {
+                bearAlert();
+            }
+
         }
 
     }
@@ -568,14 +589,10 @@ public class SceneController {
         }
     }
 
-    @FXML
-    private Label bearAttackTimer;
-
     public void updateTimerUI(double timeLeft) {
         // Update the timer display in the UI
         bearAttackTimer.setText("Bear Attack: " + timeLeft + "s");
     }
-    private Kartu kartuToko;
 
     public void showTokoDialog() {
         if (bearAttack.isBearAttackOngoing()) {
@@ -1111,6 +1128,7 @@ public class SceneController {
         stage.setScene(scene);
         stage.show();
     }
+
     public void showCardStatus(Kartu kartu, int row, int col) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Card Status");
