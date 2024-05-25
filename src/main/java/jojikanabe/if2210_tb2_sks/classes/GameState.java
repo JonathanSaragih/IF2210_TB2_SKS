@@ -56,9 +56,9 @@ public class GameState implements ConfigController {
         this.giliran = 1;
     }
 
-    public void LoadGame() {
+    public void LoadGame(String folderName) {
         this.pemain = new ArrayList<>();
-        this.loadConfig("config");
+        this.loadConfig(folderName);
     }
 
     private void loadToko() {

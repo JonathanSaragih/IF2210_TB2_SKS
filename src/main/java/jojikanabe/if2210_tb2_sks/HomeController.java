@@ -89,7 +89,7 @@ public class HomeController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+                GameState.getInstance().LoadGame(folder);
                 showLoadGameResultDialog("STATE LOADED SUCCESSFULLY", event);
             } catch (Exception ex) {
                 showLoadGameResultDialog("FAILED TO LOAD STATE", event);

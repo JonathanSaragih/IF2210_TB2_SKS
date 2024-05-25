@@ -109,18 +109,6 @@ public class SceneController {
         stage.show();
     }
 
-    public void LoadGame(ActionEvent event) throws IOException {
-        GameState.getInstance().LoadGame();
-        if (GameState.getInstance().giliran == 1) {
-            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
-        } else {
-            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
-        }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     public void NextPlayer(ActionEvent event) throws IOException {
         if (viewingOpponentField) {
@@ -699,7 +687,7 @@ public class SceneController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+                GameState.getInstance().LoadGame(folder);
                 showResultDialog("PLUGIN LOADED SUCCESSFULLY", event);
             } catch (Exception ex) {
                 showResultDialog("FAILED TO LOAD PLUGIN", event);
@@ -789,7 +777,7 @@ public class SceneController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+                GameState.getInstance().LoadGame(folder);
                 showResultDialog("STATE LOADED SUCCESSFULLY", event);
             } catch (Exception ex) {
                 showResultDialog("FAILED TO LOAD STATE", event);
@@ -879,7 +867,7 @@ public class SceneController {
             String format = formatChoiceBox.getValue();
             String folder = folderTextField.getText();
             try {
-                GameState.getInstance().LoadGame();
+                GameState.getInstance().saveConfig(folder);
                 showResultDialog("STATE SAVED SUCCESSFULLY", event);
             } catch (Exception ex) {
                 showResultDialog("FAILED TO SAVE STATE", event);
