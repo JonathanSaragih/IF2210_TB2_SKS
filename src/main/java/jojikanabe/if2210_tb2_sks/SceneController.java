@@ -15,6 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SceneController {
     private Stage stage;
@@ -435,6 +437,7 @@ public class SceneController {
                     selectedKartu = kartu;
                     selectedCardRow = finalI / 5;
                     selectedCardCol = finalI % 5;
+                    showCardStatus(selectedKartu);
                 }
                 Platform.runLater(() -> {
                     addKartuToDeck();
@@ -964,5 +967,31 @@ public class SceneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    public void showCardStatus(Kartu kartu) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Card Status");
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setHeaderText(null);
+
+        if (kartu instanceof Hewan) {
+            Hewan hewan = (Hewan) kartu;
+            alert.setContentText("Nama Hewan: " + hewan.getNama() + "\nBerat Badan: " + hewan.getBeratBadan());
+        } else if (kartu instanceof Tanaman) {
+            Tanaman tanaman = (Tanaman) kartu;
+            alert.setContentText("Nama Tanaman: " + tanaman.getNama() + "\nUmur: " + tanaman.getUmur());
+        } else {
+            alert.setContentText("Kartu:\nNama: " + kartu.getNama());
+        }
+
+        ImageView imageView = new ImageView();
+        imageView.setImage(null);
+        alert.setGraphic(imageView);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        dialogPane.getStyleClass().add("alert-dialog-pane");
+
+        alert.showAndWait();
     }
 }
