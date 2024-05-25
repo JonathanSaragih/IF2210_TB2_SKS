@@ -127,6 +127,14 @@ public class GameState implements ConfigController {
         return "Player 2: " + pemain.get(1).getGulden();
     }
 
+    public String getDeckStatusPemain1() {
+        return pemain.get(0).getDeck().getSize() + "/40";
+    }
+
+    public String getDeckStatusPemain2() {
+        return pemain.get(1).getDeck().getSize() + "/40";
+    }
+
     public Kartu getKartu(String nama) {
         for (Kartu kartu : dataKartu) {
             if (kartu.getNama().equals(nama)) {

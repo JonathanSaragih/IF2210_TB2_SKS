@@ -34,7 +34,7 @@ public class HomeController {
     private TextField folderTextField;
 
     @FXML
-    private Button deck0, deck1, deck2, deck3, deck4, deck5;
+    private Button deck0, deck1, deck2, deck3, deck4, deck5, deckP;
 
     public void NewGame(ActionEvent event) throws IOException {
         GameState.getInstance().NewGame();
@@ -176,35 +176,31 @@ public class HomeController {
 
     private Kartu kartu1, kartu2, kartu3, kartu4;
 
-    private void loadGameAndSwitchScene(ActionEvent event) throws IOException {
+    private void showAlert() {
         Pemain pemain;
-        if (GameState.getInstance().giliran % 2 == 1) {
-            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+        if (GameState.getInstance().giliran == 1) {
             pemain = GameState.getInstance().getPemain().get(0);
         } else {
-            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
             pemain = GameState.getInstance().getPemain().get(1);
         }
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+
+        System.out.println(pemain.getDeck().getSize());
+        System.out.println(pemain.getDeckAktif().size());
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
         alert.setHeaderText(null);
-
-        kartu1 = pemain.getDeck().getKartuRandom();
-        kartu2 = pemain.getDeck().getKartuRandom();
-        kartu3 = pemain.getDeck().getKartuRandom();
-        kartu4 = pemain.getDeck().getKartuRandom();
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
         gridPane.setTranslateX(20);
         gridPane.setTranslateY(10);
+
+        kartu1 = pemain.getDeck().getKartuRandom();
+        kartu2 = pemain.getDeck().getKartuRandom();
+        kartu3 = pemain.getDeck().getKartuRandom();
+        kartu4 = pemain.getDeck().getKartuRandom();
 
         buttonShuffle1 = createButtonShuffle(kartu1.getNama(), kartu1.getImage());
         buttonShuffle2 = createButtonShuffle(kartu2.getNama(), kartu2.getImage());
@@ -264,10 +260,34 @@ public class HomeController {
         confirmButton.setOnAction(e -> {
             alert.setResult(ButtonType.OK); // Set the result to OK (or any other type if needed)
             alert.hide(); // Close the alert dialog
-            pemain.getDeckAktif().add(kartu1);
-            pemain.getDeckAktif().add(kartu2);
-            pemain.getDeckAktif().add(kartu3);
-            pemain.getDeckAktif().add(kartu4);
+            if (6 - pemain.getDeckAktif().size() > 3) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeckAktif().add(kartu3);
+                pemain.getDeckAktif().add(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 3) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeckAktif().add(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 2) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 1) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeck().addKartu(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else {
+                pemain.getDeck().addKartu(kartu1);
+                pemain.getDeck().addKartu(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            }
+            System.out.println(pemain.getDeck().getSize());
+            System.out.println(pemain.getDeckAktif().size());
         });
 
         VBox vbox = new VBox(10);
@@ -288,8 +308,22 @@ public class HomeController {
         alert.setGraphic(imageView);
 
         alert.getButtonTypes().clear();
-
         alert.showAndWait();
+    }
+
+    private void loadGameAndSwitchScene(ActionEvent event) throws IOException {
+        if (GameState.getInstance().giliran % 2 == 1) {
+            root = FXMLLoader.load(getClass().getResource("Player1.fxml"));
+        } else {
+            root = FXMLLoader.load(getClass().getResource("Player2.fxml"));
+        }
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+
+        showAlert();
     }
 
     public void addKartuToDeck() {
@@ -335,6 +369,11 @@ public class HomeController {
     public void initialize() {
         if (GameState.getInstance().giliran != null) {
             addKartuToDeck();
+            if (GameState.getInstance().giliran == 1) {
+                deckP.setText(GameState.getInstance().getDeckStatusPemain1());
+            } else if (GameState.getInstance().giliran == 2) {
+                deckP.setText(GameState.getInstance().getDeckStatusPemain2());
+            }
         }
     }
 }

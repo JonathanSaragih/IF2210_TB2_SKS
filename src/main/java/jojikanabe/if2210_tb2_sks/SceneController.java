@@ -39,6 +39,8 @@ public class SceneController {
     private boolean viewingOpponentField = false;
     private Kartu selectedKartu = null;
     @FXML
+    private Label deckP;
+    @FXML
     private Button deck0;
     @FXML
     private Button deck1;
@@ -158,6 +160,9 @@ public class SceneController {
             pemain = GameState.getInstance().getPemain().get(1);
         }
 
+        System.out.println(pemain.getDeck().getSize());
+        System.out.println(pemain.getDeckAktif().size());
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
         alert.setHeaderText(null);
@@ -231,10 +236,34 @@ public class SceneController {
         confirmButton.setOnAction(e -> {
             alert.setResult(ButtonType.OK); // Set the result to OK (or any other type if needed)
             alert.hide(); // Close the alert dialog
-            pemain.getDeckAktif().add(kartu1);
-            pemain.getDeckAktif().add(kartu2);
-            pemain.getDeckAktif().add(kartu3);
-            pemain.getDeckAktif().add(kartu4);
+            if (6 - pemain.getDeckAktif().size() > 3) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeckAktif().add(kartu3);
+                pemain.getDeckAktif().add(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 3) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeckAktif().add(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 2) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeckAktif().add(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else if (6 - pemain.getDeckAktif().size() == 1) {
+                pemain.getDeckAktif().add(kartu1);
+                pemain.getDeck().addKartu(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            } else {
+                pemain.getDeck().addKartu(kartu1);
+                pemain.getDeck().addKartu(kartu2);
+                pemain.getDeck().addKartu(kartu3);
+                pemain.getDeck().addKartu(kartu4);
+            }
+            System.out.println(pemain.getDeckAktif().size());
+            System.out.println(pemain.getDeck().getSize());
         });
 
         VBox vbox = new VBox(10);
@@ -451,6 +480,11 @@ public class SceneController {
             turn.setText(GameState.getInstance().getTurn());
             player1.setText(GameState.getInstance().getGuldenPemain1());
             player2.setText(GameState.getInstance().getGuldenPemain2());
+            if (GameState.getInstance().giliran == 1) {
+                deckP.setText(GameState.getInstance().getDeckStatusPemain1());
+            } else if (GameState.getInstance().giliran == 2) {
+                deckP.setText(GameState.getInstance().getDeckStatusPemain2());
+            }
         }
     }
 

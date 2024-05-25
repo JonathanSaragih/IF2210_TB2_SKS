@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
 <!-- Rest of your FXML code -->
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600" prefWidth="600" spacing="20.0" styleClass="player1box"
-      stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      fx:controller="jojikanabe.if2210_tb2_sks.SceneController">
+<VBox prefHeight="600" prefWidth="600" spacing="20.0" styleClass="player1box" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jojikanabe.if2210_tb2_sks.SceneController">
     <Pane prefHeight="200.0" prefWidth="600.0" styleClass="player1bg" stylesheets="styles.css">
         <Pane prefHeight="170.0" prefWidth="600.0">
             <Pane layoutX="14.0" layoutY="14.0" prefHeight="31.2" prefWidth="124.8" styleClass="playerlabel" stylesheets="styles.css">
                 <HBox spacing="30">
                     <Label fx:id="player1" styleClass="player1label" stylesheets="styles.css" text="Player 1:" />
-                    <ImageView fitWidth="20" fitHeight="25">
+                    <ImageView fitHeight="25" fitWidth="20">
                         <image>
                             <Image url="@../../assets/coin.png" /> <!-- Replace with your image file path -->
                         </image>
@@ -25,18 +22,16 @@
             <Pane layoutX="14.0" layoutY="50.0" prefHeight="31.2" prefWidth="124.8" styleClass="playerlabel" stylesheets="styles.css">
                 <HBox spacing="30">
                     <Label fx:id="player2" styleClass="player2label" stylesheets="styles.css" text="Player 2:" />
-                    <ImageView fitWidth="20" fitHeight="25">
+                    <ImageView fitHeight="25" fitWidth="20">
                         <image>
                             <Image url="@../../assets/coin.png" /> <!-- Replace with your image file path -->
                         </image>
                     </ImageView>
                 </HBox>
             </Pane>
-            <Button layoutY="14.0" layoutX="300.0" mnemonicParsing="false" onAction="#NextPlayer" prefHeight="31.2"
-                    prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Next"/>
-            <Pane layoutX="500.0" prefHeight="112" prefWidth="112" stylesheets="styles.css" styleClass="turn1">
-                <Label fx:id="turn" layoutY="20.0" layoutX="35.0" text="Turn 1" alignment="CENTER" styleClass="text-turn"
-                       stylesheets="styles.css"/>
+            <Button layoutX="300.0" layoutY="14.0" mnemonicParsing="false" onAction="#NextPlayer" prefHeight="31.2" prefWidth="104" styleClass="playerbutton" stylesheets="styles.css" text="Next" />
+            <Pane layoutX="500.0" prefHeight="112" prefWidth="112" styleClass="turn1" stylesheets="styles.css">
+                <Label fx:id="turn" alignment="CENTER" layoutX="35.0" layoutY="20.0" styleClass="text-turn" stylesheets="styles.css" text="Turn 1" />
             </Pane>
         </Pane>
         <Pane layoutY="170.0" prefHeight="446.6" prefWidth="600.0" styleClass="player1layer" stylesheets="styles.css">
@@ -99,7 +94,12 @@
                   <Button fx:id="deck3" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="3" />
                   <Button fx:id="deck4" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="4" />
                   <Button fx:id="deck5" mnemonicParsing="false" prefHeight="62.4" prefWidth="62.4" styleClass="card-deck" stylesheets="styles.css" GridPane.columnIndex="5" />
-                  <Button mnemonicParsing="false" prefHeight="33.3" prefWidth="62.4" styleClass="card-shuffle" stylesheets="styles.css" text="Deck" GridPane.columnIndex="6" />
+                  <Pane maxHeight="62.4" maxWidth="62.4" styleClass="card-shuffle" stylesheets="styles.css" GridPane.columnIndex="6">
+                      <VBox spacing="5" layoutX="13" layoutY="11">
+                            <Label alignment="CENTER" maxHeight="60" maxWidth="60" styleClass="card-shuffle" stylesheets="styles.css" text="Deck" />
+                            <Label fx:id="deckP" alignment="CENTER" maxHeight="60" maxWidth="60" styleClass="card-shuffle" stylesheets="styles.css" text="40/40" />
+                      </VBox>
+                  </Pane>
                </children>
             </GridPane>
             <GridPane alignment="CENTER" layoutX="450.0" layoutY="47.0" prefHeight="291.0" prefWidth="151.0">
@@ -115,12 +115,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Ladangku" GridPane.rowIndex="0" onAction="#showLadangku"/>
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Ladang Lawan" GridPane.rowIndex="1" onAction="#showLadangLawan"/>
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Toko" GridPane.rowIndex="2" onAction="#showTokoDialog" />
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Save State" GridPane.rowIndex="3" onAction="#showSaveStateDialog" />
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Load State" GridPane.rowIndex="4" onAction="#showLoadStateDialog" />
-                  <Button mnemonicParsing="false" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Load Plugin" GridPane.rowIndex="5" onAction="#showLoadPluginDialog" />
+                  <Button mnemonicParsing="false" onAction="#showLadangku" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Ladangku" GridPane.rowIndex="0" />
+                  <Button mnemonicParsing="false" onAction="#showLadangLawan" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Ladang Lawan" GridPane.rowIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#showTokoDialog" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Toko" GridPane.rowIndex="2" />
+                  <Button mnemonicParsing="false" onAction="#showSaveStateDialog" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Save State" GridPane.rowIndex="3" />
+                  <Button mnemonicParsing="false" onAction="#showLoadStateDialog" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Load State" GridPane.rowIndex="4" />
+                  <Button mnemonicParsing="false" onAction="#showLoadPluginDialog" prefHeight="31.2" prefWidth="104" styleClass="side-button" stylesheets="styles.css" text="Load Plugin" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children></Pane>
