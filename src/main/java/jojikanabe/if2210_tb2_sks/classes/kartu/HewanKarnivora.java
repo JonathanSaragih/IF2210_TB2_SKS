@@ -5,6 +5,10 @@ public class HewanKarnivora extends Hewan {
         super(nama, image, beratBadanSiapPanen, beratBadan);
     }
 
+    public HewanKarnivora(HewanKarnivora original) {
+        super(original);
+    }
+
     @Override
     public void makan(Kartu kartu) throws Exception {
         String[] makanan = {"Sirip Hiu", "Daging Kuda", "Daging Domba", "Daging Beruang"};

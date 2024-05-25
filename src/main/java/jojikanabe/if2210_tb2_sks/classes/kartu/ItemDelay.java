@@ -7,6 +7,10 @@ public class ItemDelay extends Item {
         super("Delay", image);
     }
 
+    public ItemDelay(ItemDelay original) {
+        super(original);
+    }
+
     @Override
     public void efek(int row, int col, int nomorPemain) throws Exception {
         GameState gameState = GameState.getInstance();

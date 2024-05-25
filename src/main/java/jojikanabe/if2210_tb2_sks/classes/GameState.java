@@ -142,7 +142,8 @@ public class GameState implements ConfigController {
     public Kartu getKartu(String nama) {
         for (Kartu kartu : dataKartu) {
             if (kartu.getNama().equals(nama)) {
-                return kartu;
+                Kartu kartuBaru = Kartu.getCopy(kartu);
+                return kartuBaru;
             }
         }
         return null;
